@@ -6,6 +6,10 @@ u23656175 James Neale
 
 u235990883 Marco Paximadis
 
+u23527766 Salmaan Patel
+
+u19194839 Jinfeng Raymond Lai
+
 ## TO-DO
 
 ### Task 0:
