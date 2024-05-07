@@ -12,6 +12,8 @@ u19194839 Jinfeng Raymond Lai
 
 u23577674 Ethan Wilke
 
+u20445696 Eugen Vosloo
+
 ## TO-DO
 
 ### Task 0:
