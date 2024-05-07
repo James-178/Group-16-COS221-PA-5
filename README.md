@@ -10,6 +10,8 @@ u23527766 Salmaan Patel
 
 u19194839 Jinfeng Raymond Lai
 
+u23577674 Ethan Wilke
+
 ## TO-DO
 
 ### Task 0:
