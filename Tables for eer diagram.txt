@@ -1,0 +1,60 @@
+Titles:
+	title_id
+	name
+	release_year
+	length
+	language_id
+	IMBD_rating
+	is_movie
+	studio_id
+	description
+
+Languages:
+	language_id
+	language
+
+Title_genres:
+	genre_id
+	title_id
+
+Genres	
+	genre_id
+	genre	
+
+Title_person:
+	person_id
+	title_id
+	
+People
+	director_id
+	name (name, surname)
+	dOB
+	position_id
+
+Positions:
+	position_id
+	position
+
+Studios
+	studio_id
+	name
+	address_contactInfo(location(street_address(street_number, street), city, province), {phone_number}, {email}))
+	
+Reviews:
+	review_id
+	title_id
+	user_id
+	rating //1-5
+	review
+
+Users:
+	user_id
+	name
+	surname
+	email
+	password
+	salt
+	api_key
+	
+
+
