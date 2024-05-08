@@ -30,6 +30,7 @@ People
 	name (name, surname)
 	dOB
 	position_id
+	gender
 
 Positions:
 	position_id
@@ -52,6 +53,7 @@ Users:
 	name
 	surname
 	email
+	gender
 	password
 	salt
 	api_key
