@@ -89,3 +89,35 @@ JOIN reviews r ON t.title_id = r.title_id
 WHERE r.user_id = 1
 ORDER BY r.rating DESC
 LIMIT 5;
+
+-retrieve all actors involved in a specific listed title by title id
+  SELECT * FROM title_actors t JOIN actors a ON a.actor_id = t.actor_id WHERE t.title_id = 17
+
+-retrieve all movies where a certain actor is involved in by actor id
+  SELECT * FROM title_actors t JOIN titles m ON m.title_id = t.title_id WHERE t.actor_id = 10
+
+-filter titles by excluding results from a specific studio by name
+  SELECT t.* FROM titles t JOIN studios s ON t.studio_id = s.studio_id WHERE s.name != 'Ferry LLC'
+
+-filter titles by excluding results from multiple specific studios by names 
+  SELECT t.* FROM titles t JOIN studios s ON t.studio_id = s.studio_id WHERE s.name NOT IN ('Ferry LLC', 'Franecki-Flatley', 'Romaguera-Jacobs')
+
+-recommend up to 10 random titles from the same studio by id
+  SELECT * FROM titles WHERE studio_id=12 ORDER BY RAND() LIMIT 10;
+
+-recommend up to 10 random titles from the same director by first and last name:
+  SELECT t.* FROM title_people tp 
+  INNER JOIN directors d ON tp.person_id = d.person_id 
+  INNER JOIN titles t ON tp.title_id = t.title_id 
+  INNER JOIN people p ON tp.person_id = p.person_id
+  WHERE p.first_name = 'Noah' AND p.last_name = 'Minker' ORDER BY RAND() LIMIT 10;
+
+-select from multiple constraints simultaneously, for example : select shows only, excluding certain studios by name, including specific actor, released after 2000, ordered by imdb rating ascendingly
+  SELECT * FROM title_actors t 
+  JOIN titles m ON m.title_id = t.title_id 
+  JOIN studios s ON m.studio_id = s.studio_id 
+  WHERE t.actor_id = 10 AND m.is_movie = 0 
+  AND m.release_year > '2000' AND s.name NOT IN ('Ferry LLC', 'Franecki-Flatley') 
+  ORDER BY m.IMDB_rating ASC
+ 
+
