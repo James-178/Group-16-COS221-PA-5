@@ -1,0 +1,21 @@
+{
+    "type":"GetTitle",
+    "api_key": "1MFEaA8FrFVRiMBdVdFB",
+    "title_id": 4
+}
+
+
+{
+    "type":"Register",
+    "first_name" : "testname",
+    "last_name" :"testagain",
+    "dob" : "2024/01/01",
+    "email": "testemail@real.com",
+    "password": "123Test?"
+}
+
+{
+    "type":"Login",
+    "email": "testemail@real.com",
+    "password": "123Test?"
+}
