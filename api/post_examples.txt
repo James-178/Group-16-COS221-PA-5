@@ -1,10 +1,112 @@
+post:
 {
     "type":"GetTitle",
     "api_key": "1MFEaA8FrFVRiMBdVdFB",
     "title_id": 4
 }
 
+result:
+{
+    "status": "success",
+    "timestamp": 1716029656775.489,
+    "data": [
+        {
+            "title_id": 4,
+            "name": "Babymother",
+            "release_year": "2012",
+            "description": "A heist movie with twists and turns, where nothing is as it seems, and the stakes are higher than ever.",
+            "duration": 142,
+            "IMDB_rating": "8.4",
+            "is_movie": 0,
+            "language_id": 1,
+            "studio_id": 1,
+            "studio_name": "Mayer, Kohler and Spencer",
+            "language_name": "English",
+            "actor_names": [
+                "Dallon Everton",
+                "Mag Brandi",
+                "Marcello O'Grada",
+                "Tracy Withrop"
+            ],
+            "director": "Leanna Paule",
+            "crew": [
+                "Hannis Walshe",
+                "Jennette Ewdale",
+                "Lammond Julien",
+                "Rey Hampshaw"
+            ],
+            "reviews": [
+                "A musical masterpiece that will move your soul.",
+                "The characters were poorly developed and unrelatable."
+            ],
+            "genres": [
+                "Comedy",
+                " Crime"
+            ]
+        }
+    ]
+}
+	
+post:
+{
+    "type":"GetAllTitles",
+    "api_key":"1MFEaA8FrFVRiMBdVdFB",
+    "search" : {
+        "description" : "self-discovery"
+    },
+    "sort": "release_year",
+    "order": "asc",
+    "limit" : 2
+}
+result:
+{
+    "status": "success",
+    "timestamp": 1716029778138.188,
+    "data": [
+        [
+            {
+                "title_id": "83",
+                "name": "Snow Walker, The",
+                "release_year": "2000",
+                "description": "A coming-of-age story about self-discovery, growth, and the power of the human spirit.",
+                "duration": "171",
+                "IMDB_rating": "7.6",
+                "is_movie": "0",
+                "language_id": "1",
+                "studio_id": "20",
+                "studio_name": "D'Amore, Stehr and Kautzer",
+                "language_name": "English",
+                "actor_names": "Jourdain Kissock, Latrena Wyldbore, Marie-ann Sonnenschein, Reider Simkovitz, Rodrick McCloch, Rosalyn Bertson, Rustie Loughrey, Sallyanne Bertolin",
+                "director": null,
+                "crew": "Gnni Surgison, Heather Fox, Howard Hugnet, Junie Swaffer, Katie Clear, Pasquale Daniel",
+                "reviews": "A historical drama that will transport you to another era., A romantic tale that will make you believe in love again.",
+                "genres": "Science Fiction, Thriller"
+            }
+        ],
+        [
+            {
+                "title_id": "378",
+                "name": "Rains of Ranchipur, The",
+                "release_year": "2004",
+                "description": "A coming-of-age story about self-discovery, growth, and the power of the human spirit.",
+                "duration": "140",
+                "IMDB_rating": "2.2",
+                "is_movie": "1",
+                "language_id": "1",
+                "studio_id": "28",
+                "studio_name": "Walker, Schamberger and Rosenbaum",
+                "language_name": "English",
+                "actor_names": "Bram Brightling, Faunie Polino, Jamal Putt, Leonore Northley, Maison Schwieso, Ulrick De Gregario, Welby Ganforthe",
+                "director": null,
+                "crew": "Rowena Bygrove",
+                "reviews": "The characters were poorly developed and unrelatable.",
+                "genres": "Comedy, Crime"
+            }
+        ]
+    ]
+}
 
+post:
 {
     "type":"Register",
     "first_name" : "testname",
@@ -14,8 +116,47 @@
     "password": "123Test?"
 }
 
+post:
 {
     "type":"Login",
     "email": "testemail@real.com",
     "password": "123Test?"
+}
+result:
+{
+    "status": "success",
+    "timestamp": 1716029962307.3809,
+    "data": {
+        "apikey": "3b69c3b203a476ac0517"
+    }
+}
+
+
+post:
+{
+    "type":"AddTitle",
+    "api_key":"1MFEaA8FrFVRiMBdVdFB",
+    "name" : "added title",
+    "description": "added description",
+    "duration" : 110,
+    "is_movie": 1,
+    "release_year": 1996,
+    "language_id" : 1,
+    "studio_id" : 12
+}
+
+post:
+{
+    "type":"UpdateTitle",
+    "api_key":"1MFEaA8FrFVRiMBdVdFB",
+    "title_id": 501,
+    "name" : "updated title",
+    "description": "updated description"
+}
+
+post:
+{
+    "type":"RemoveTitle",
+    "api_key":"1MFEaA8FrFVRiMBdVdFB",
+    "title_id": 501
 }
