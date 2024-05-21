@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/Style.css">
+    <link rel="stylesheet" type="text/css" href="css/login-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,34 +26,48 @@
             </ul>
         </div>
     </nav>
-    <div class="hero-text-box">
-        <h1 class="title">Create a New Account</h1>
-        <form id="registerForm" action="register_api.php" method="POST">
-            <div>
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" required>
-            </div>
-            <div>
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" required>
-            </div>
-            <div>
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <button type="submit">Register</button>
-            </div>
-        </form>
-    </div>
+
+    <section class = "login">
+            <!-- <div class = "container"> -->
+                
+                <div class = "grid">
+                    <div class = "card">
+                    <h1 class = "register-header">Register</h1>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="name" class="login-label">Name:</label>
+                                <input type = "text" id = "name" name = "name" class = "login-input" placeholder="Tony" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="surname" class="login-label">Surname:</label>
+                                <input type = "text" id = "surname" name = "surname" class = "login-input" placeholder="Stark" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="login-label">E-mail:</label>
+                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="TonyStark@gmail.com" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="login-label">Password:</label>
+                                <input type = "password" id = "password" name = "password" class = "login-input"  required><br>
+                            </div>
+
+                            <div id = "error">
+                    
+                            </div>
+                    
+                            <button id = "register-btn" type="button" class = "submit">Register</button>
+                        </form>
+                        
+                        <p class = "login-label">Already have an account? <a style="color : rgb(66, 66, 66)" href="login.php">Login here.</a></p>
+
+                    </div>
+                    
+                </div>
+            <!-- </div> -->
+        </section>
 </header>
 </body>
 </html>

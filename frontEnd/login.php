@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/login-styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,22 +26,37 @@
             </ul>
         </div>
     </nav>
-    <div class="hero-text-box">
-        <h1 class="title">Login to Your Account</h1>
-        <form action="login_process.php" method="POST">
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <button type="submit">Login</button>
-            </div>
-        </form>
-    </div>
+    <section class = "login">
+            <!-- <div class = "container"> -->
+                
+                <div class = "grid">
+                    <div class = "card">
+                        <h1 class = "register-header">LOGIN</h1>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="email" class="login-label">E-mail:</label>
+                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="youremail@gmail.com" value = "dmtest@plswork.com" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="login-label">Password:</label>
+                                <input type = "password" id = "password" name = "password" class = "login-input" value = "LoveYou3000!" required><br>
+                            </div>
+
+                            <div id = "error">
+                    
+                            </div>
+                    
+                                <button id = "login-btn" type="button" class = "submit">Login</button>
+                        </form>
+                        
+                        <p class = "login-label">No account? <a style="color : rgb(66, 66, 66)" href="register.php"> Register here.</a></p>
+
+                    </div>
+                    
+                </div>
+            <!-- </div> -->
+    </section>
 </header>
 </body>
 </html>

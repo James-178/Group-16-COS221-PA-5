@@ -1,0 +1,92 @@
+/* <!--James Neale-->
+<!--u23656175--> */
+
+
+.container {
+    max-width: 800px;
+    
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .register-header{
+    font-size: 25px;
+  }
+  
+  /* Style the grid and card */
+  .grid {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    
+    height: 80vh;
+  }
+  
+  .card {
+    max-height: 75vh;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-top: 16vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the form elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .login-label {
+    color: rgb(66, 66, 66);
+    display: block;
+    margin-bottom: 2px;
+  }
+  
+  .login-input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .login-input:focus {
+    border-color: #aaa;
+  }
+  
+  .submit {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit:hover {
+    background-color: #3e8e41;
+  }
+  
+  /* Style the error message */
+  #error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the already have an account link */
+  .a-login {
+    color: black;
+  }
+
+  a {
+    /* text-decoration: none; */
+    color: #535353;
+  }
+  
+  a:hover {
+    color: #23527c;
+  }
