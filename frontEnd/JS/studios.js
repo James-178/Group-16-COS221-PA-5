@@ -3,13 +3,13 @@ document.addEventListener("DOMContentLoaded",function()
 
     var requestStudio = new XMLHttpRequest();
     //http://localhost/Group-16-COS221-PA-5/frontEnd/login.php
-    requestStudio.open("POST","http://localhost/Group-16-COS221-PA-5/frontEnd/movie_api_v2.php");
+    requestStudio.open("POST","http://localhost/Group-16-COS221-PA-5/api/movie_api_v2.php");
     requestStudio.setRequestHeader("Content-Type", "application/json");
 
     requestStudio.send(JSON.stringify(
     {
-        type: "studio",
-        // apikey: ""
+        type: "studios",
+        api_key: "1L9v3SkNkKxUcARx3YxL" // localstorage.getItem("api_key")
     }));
 
     requestStudio.onload = function()
@@ -22,10 +22,11 @@ document.addEventListener("DOMContentLoaded",function()
     
         if (response.status === 'success') 
         { 
-            for (let i = 0; i < response.data.length; i++) 
+            for (let i = 1; i < response.data[0].length; i++) 
             {
                 createListing2(i, response);
             }  
+            console.log("working");
         } 
         else 
         {
@@ -38,98 +39,67 @@ document.addEventListener("DOMContentLoaded",function()
 
     function createListing2(index, response) 
     {
-        const Lisitingcontainer = document.createElement('div');
   
-        const Listing = document.createElement('div');
-        Listing.classList.add('listing');
-        Listing.id =`Listing${index + 1}`;
-      
-        // const imageRequest = new XMLHttpRequest();
-        // imageRequest.open("GET", `https://wheatley.cs.up.ac.za/api/getimage?listing_id=${response.data[index].id}`, false);
-      
-        // imageRequest.onload = function() 
-        // {
-        //   const imageResponse = JSON.parse(this.responseText);
-        //   if (imageResponse.status === 'success') 
-        //   {
+       
 
-            const name = document.createElement('p');
-            price.innerText = "Studio Name:" + response.name;
-            Listing.appendChild(price);
+        const imageRequest = new XMLHttpRequest();
 
-            const imageLink = document.createElement('a');
-            imageLink.id = `Listing${index + 1}image`;
-            imageLink.href = response.data[index].url;
-            Listing.appendChild(imageLink);
-  
-            const image = document.createElement('img');
-            image.classList.add('listing');
-            image.src = imageResponse.data[0];
-            image.alt = `Listing ${index + 1} image`;
-            image.href = response.data[index].url;
-            imageLink.appendChild(image);
+        // API that im using for studio images
+        imageRequest.open("GET", `https://api.themoviedb.org/3/company/${index}/images`, false);
+        imageRequest.setRequestHeader('accept', 'application/json');
+        imageRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhjNzk1ZDlmY2JmMzczZDMyZGZhNzVlZDIzYjUzNyIsInN1YiI6IjY2NGNhODAyZmQ0MWQ1M2NhZmYyZGRlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gkyF7TnTPIp4G-J6gMfFuETtXZe6TSw1wk7Yip9zt2U');
       
-            const Listingtitle = document.createElement('h2');
-            Listingtitle.id = `Listing ${index + 1}title`;
-            Listingtitle.innerText = response.data[index].title;
-            Listing.appendChild(Listingtitle);
-  
-            const Location = document.createElement('p');
-            Location.id = `Location${index}`;
-            Location.innerText = "Location: " + response.data[index].location;
-            Listing.appendChild(Location);
-  
-            const price = document.createElement('p');
-            price.id = `price${index}`;
-            price.innerText = "Price: R" + response.data[index].price;
-            Listing.appendChild(price);
-  
-            const bedrooms = document.createElement('p');
-            bedrooms.id = `bedrooms${index}`;
-            bedrooms.innerText = "Bedrooms :" + response.data[index].bedrooms;
-            Listing.appendChild(bedrooms);
-  
-            const bathrooms = document.createElement('p');
-            bathrooms.id = `bathrooms${index}`;
-            bathrooms.innerText = "Bathrooms :" + response.data[index].bathrooms;
-            Listing.appendChild(bathrooms);
-  
-            const type = document.createElement('p');
-            type.id = `type${index}`;
-            type.innerText = "Property is for : " + response.data[index].type;
-            Listing.appendChild(type);
-      
-            const ListingButton = document.createElement('button');
-            ListingButton.id = `${index + 1}`;
-            ListingButton.innerText = "More Information";
-            Listing.appendChild(ListingButton);
-  
-            ListingButton.addEventListener('click', function()
+        imageRequest.onload = function() 
+        {
+
+            // if (!this.responseText) return;
+            var imageresponse = JSON.parse(imageRequest.responseText);
+
+            // console.log(response);
+
+            if (imageresponse.id !== null)
+            { 
+                
+                console.log(imageresponse);
+
+                if (imageresponse.logos.length !== 0) 
+                {
+
+                    var spanContainer = document.getElementById("studios");
+
+                    const tile = document.createElement('div');
+                    tile.classList.add('tile');
+                  
+                    spanContainer.appendChild(tile);
+                    
+                    const image = document.createElement('img');
+                    image.classList.add('movieImage');
+                    image.src = "https://image.tmdb.org/t/p/original/" + imageresponse.logos[0].file_path;
+                    tile.appendChild(image);
+
+
+                    const name = document.createElement('p');
+                    name.innerText = "Studio Name: " + response.data[0][index].name;
+                    tile.appendChild(name);
+
+                    const Address = document.createElement('p');
+                    Address.innerText = "Address: " + response.data[0][index].street_number 
+                    + " " + response.data[0][index].street + " " + response.data[0][index].city
+                    + " " + response.data[0][index].province + " " + response.data[0][index].country;
+                    tile.appendChild(Address);
+
+                    document.body.appendChild(spanContainer);
+                }
+            }
+            else
             {
-              var buttonID = ListingButton.id;
-              console.log(buttonID);
-              const url = `view.html?id=${buttonID}`;
-              // ListingButton.removeAttribute("href");
-              ListingButton.setAttribute("data-url", url);
-              window.open(url, "_Blank");
-            });
+                console.log("Resource could not be found");
+            }
   
-            const ListingLinkAdd = document.createElement('a');
-            ListingLinkAdd.id = `Listing${index + 1}LinkAdd`;
-            ListingLinkAdd.href = "Favourites.html";
-            Listing.appendChild(ListingLinkAdd);
-      
-            const ListingAddToFav = document.createElement('button');
-            ListingAddToFav.id = `Listings${index + 1}AddToFavButton`;
-            ListingAddToFav.innerText = "Add to Favourites"; 
-            ListingLinkAdd.appendChild(ListingAddToFav);
-      
-            document.body.appendChild(Listing);
-  
-        //   }
+        }
 
-        // };
+        //};
       
-        // imageRequest.send();
+        imageRequest.send();
     }
     

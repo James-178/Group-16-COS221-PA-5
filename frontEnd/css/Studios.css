@@ -405,7 +405,8 @@ input[type=submit]{
  /* Listings */
 
 .studios {
-    position: relative;
+    position: relative;    
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-right: 140px;
@@ -413,11 +414,10 @@ input[type=submit]{
     top: 21%;
     left: 0;
     width: 100%;
-    display: flex;
 }
 
 .tile {
-    display: flexbox;
+    display: inline-block;
     position: relative;
     color: #ffffff;
     padding: 10px 30px;
@@ -433,8 +433,12 @@ input[type=submit]{
 
 
 
-.movieImage{
-    border-radius: 10px;
+.movieImage
+{
+    width: fit-content;
+    height: fit-content;
+    width: 60%;
+    background-color: white;
 }
 
  /* Agents */
