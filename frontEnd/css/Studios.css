@@ -47,7 +47,7 @@ ul {
 }
 
 body{
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/BG.png);
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/cybercity.jpg);
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -404,13 +404,13 @@ input[type=submit]{
 
  /* Listings */
 
-.listings {
+.studios {
     position: relative;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-right: 140px;
     margin-left: 0px;
-    top: 2%;
+    top: 21%;
     left: 0;
     width: 100%;
     display: flex;
