@@ -29,8 +29,8 @@
         <h1 class="title">Studios</h1>
 </div>
 
-<span class="studios">
-        <div class="tile">
+<span class="studios" id="studios">
+        <!-- <div class="tile">
             <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
             <p>
                 Name: Lucas Film<br>
@@ -79,9 +79,10 @@
                 Phone Nmber: 011 524 7894<br>
             </p>
             
-        </div>
-    </span>
+        </div>-->
+    </span> 
 
+    <script type="text/javascript" src="JS/studios.js"></script>
 
 </body>
 </html>
