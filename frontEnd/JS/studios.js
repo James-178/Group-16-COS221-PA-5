@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded",function()
     
         if (response.status === 'success') 
         { 
-            for (let i = 1; i < response.data[0].length; i++) 
+            for (let i = 1; i < 50; i++) 
             {
                 createListing2(i, response);
             }  
@@ -37,39 +37,32 @@ document.addEventListener("DOMContentLoaded",function()
     }
 });
 
-    function createListing2(index, response) 
-    {
-  
-       
+   function createListing2(index, response) 
+{
+    const imageRequest = new XMLHttpRequest();
 
-        const imageRequest = new XMLHttpRequest();
-
-        // API that im using for studio images
-        imageRequest.open("GET", `https://api.themoviedb.org/3/company/${index}/images`, false);
-        imageRequest.setRequestHeader('accept', 'application/json');
-        imageRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhjNzk1ZDlmY2JmMzczZDMyZGZhNzVlZDIzYjUzNyIsInN1YiI6IjY2NGNhODAyZmQ0MWQ1M2NhZmYyZGRlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gkyF7TnTPIp4G-J6gMfFuETtXZe6TSw1wk7Yip9zt2U');
+    // API that im using for studio images
+    imageRequest.open("GET", `https://api.themoviedb.org/3/company/${index}/images`);
+    imageRequest.setRequestHeader('accept', 'application/json');
+    imageRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhjNzk1ZDlmY2JmMzczZDMyZGZhNzVlZDIzYjUzNyIsInN1YiI6IjY2NGNhODAyZmQ0MWQ1M2NhZmYyZGRlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gkyF7TnTPIp4G-J6gMfFuETtXZe6TSw1wk7Yip9zt2U');
       
-        imageRequest.onload = function() 
-        {
+    imageRequest.onload = function() 
+    {
+        // if (!this.responseText) return;
+        var imageresponse = JSON.parse(imageRequest.responseText);
 
-            // if (!this.responseText) return;
-            var imageresponse = JSON.parse(imageRequest.responseText);
+        // console.log(response);
 
-            // console.log(response);
+        if (imageresponse.id !== null)
+        { 
+            console.log(imageresponse);
 
-            if (imageresponse.id !== null)
-            { 
-                
-                console.log(imageresponse);
-
-                if (imageresponse.logos.length !== 0) 
-                {
-
-                    var spanContainer = document.getElementById("studios");
+            if (imageresponse.logos.length !== 0) 
+            {
+                var spanContainer = document.getElementById("studios");
 
                     const tile = document.createElement('div');
-                    tile.classList.add('tile');
-                  
+                    tile.classList.add('tile'); // add a data attribute to store the studio name
                     spanContainer.appendChild(tile);
                     
                     const image = document.createElement('img');
@@ -77,6 +70,9 @@ document.addEventListener("DOMContentLoaded",function()
                     image.src = "https://image.tmdb.org/t/p/original/" + imageresponse.logos[0].file_path;
                     tile.appendChild(image);
 
+                    const CeoNames = document.createElement('p');
+                    CeoNames.innerText = "CEO: " + response.data[0][index].first_name + " " +  response.data[0][index].last_name;
+                    tile.appendChild(CeoNames);
 
                     const name = document.createElement('p');
                     name.innerText = "Studio Name: " + response.data[0][index].name;
@@ -88,18 +84,23 @@ document.addEventListener("DOMContentLoaded",function()
                     + " " + response.data[0][index].province + " " + response.data[0][index].country;
                     tile.appendChild(Address);
 
-                    document.body.appendChild(spanContainer);
-                }
-            }
-            else
-            {
-                console.log("Resource could not be found");
-            }
-  
-        }
+                    const phone = document.createElement('p');
+                    phone.innerText = "Phone numbers : " + response.data[0][index].phone; 
+                    tile.appendChild(phone);
 
-        //};
-      
-        imageRequest.send();
+                    const email = document.createElement('p');
+                    email.innerText = "Email : " + response.data[0][index].email; 
+                    tile.appendChild(email);
+                
+
+            }
+        }
+        else
+        {
+            console.log("Resource could not be found");
+        }
     }
+
+    imageRequest.send();
+}
     

@@ -7,11 +7,6 @@ padding: 0px;
 box-sizing: border-box;
 }
 
-header
-{
-    height: 100vh;
-}
-
 html{
     margin: 0px;
     padding: 0px;
@@ -600,13 +595,12 @@ input[type=submit]{
 
 .movieInfo {
     position: relative;
-    top: 85%;
+    top: 120%;
     background-color: #181818;
     padding: 10px;
     width: 1400px;
-    height: 120%;
+    height: 1800px;
     left: 50%;
-    margin-bottom: 100px;
     transform: translate(-50%,-50%);
     /* border-radius: 20px; */
     /* justify-content: space-evenly; */
@@ -679,23 +673,5 @@ input[type=submit]{
 	margin: 0px 4px 30px 4px;
 	border: 0px 2px 0px 2px solid #504c4c;
     width: 300px;
-}
-
-#genre::-webkit-scrollbar {
-    display: none;
-  }
-  
-#genre {
--ms-overflow-style: none; 
-scrollbar-width: none;  
-}
-
-#lang::-webkit-scrollbar {
-display: none;
-}
-
-#lang {
--ms-overflow-style: none;
-scrollbar-width: none;
 }
 
