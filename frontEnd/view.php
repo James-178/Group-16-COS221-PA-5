@@ -20,11 +20,11 @@
                         <li><a href="index.html">Listings</a></li>
                         <li><a href="studios.html">Studios</a></li>
                         <li><a href="watchlist.html">Watchlist</a></li>
+                        <li><a href="register.php">Register</a></li>
+                        <li><a href="login.php">Login</a></li>
                     </ul>
            </div>
         </nav> 
-		<div class="hero-text-box">
-			<h1 class="title">View</h1>
             <div class="movieInfo">
                 <div class="shortInfo">
                     <img src="img/ironman.jpg" alt="image of movie" width="300" height="300">
@@ -33,7 +33,8 @@
                         Release Year: 2008<br>
                         Genre: Sci-fi<br>
                         Language: English<br>
-                        IMDB-Rating: 9.7
+                        IMDB-Rating: 9.7<br>
+                        Duration: 1 
                     </p>
                 </div>
                 <div class="longInfo">
@@ -46,9 +47,51 @@
                         In the film, following his escape from captivity by a terrorist group, world-famous industrialist and master engineer Tony Stark builds a mechanized suit of armor and 
                         becomes the superhero Iron Man. 
                     </p>
+                    <div class="viewPeople">
+                        <div class="people">
+                            <h2>Actors</h2>
+                                <ul>
+                                    <li>Robert Downey JR</li> 
+                                    <li>Robert Downey JR</li> 
+                                    <li>Robert Downey JR</li>
+                                </ul>
+                        </div>
+
+                        <div class="people">
+                            <h2>Directors</h2>
+                                <ul>
+                                    <li>Robert Downey JR</li> 
+                                    <li>Robert Downey JR</li> 
+                                    <li>Robert Downey JR</li> 
+                                </ul>
+                        </div>
+
+                        <div class="people">
+                            <h2>Crew</h2>
+                                <ul>
+                                    <li>Robert Downey JR</li>
+                                    <li>Robert Downey JR</li>  
+                                    <li>Robert Downey JR</li> 
+                                </ul>
+                        </div>
+                    </div>
+
+
+                    <h2>Leave a Review: </h2>
+                    <form action="" id="view-form">
+                        <label for="review"></label>
+                        <textarea id="review" name="review" rows="4"cols="50">Great Movie!!!</textarea>
+                        <div class="dropdown">
+                            <button class="dropbtn">Review Score:</button>
+                            <div class="dropdown-content">
+                                <input id="reviewScore" type="number" value="9">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="btn">Submit</div>
+                    </form>
                 </div>
             </div>
-		</div>
                     
 </header>
 </body>

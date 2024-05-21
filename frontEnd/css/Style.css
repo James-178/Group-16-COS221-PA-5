@@ -87,7 +87,7 @@ h1 {
     position: relative;
     width: 1140px;
     height: auto;
-    top: 30%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 10;
@@ -235,6 +235,11 @@ input[type=submit]{
 }
 
 #year{
+    background-color: #000000;
+    color: white;
+}
+
+#reviewScore{
     background-color: #000000;
     color: white;
 }
@@ -407,7 +412,7 @@ input[type=submit]{
     justify-content: space-evenly;
     margin-right: 140px;
     margin-left: 0px;
-    top: 25%;
+    top: 18%;
     left: 0;
     width: 100%;
     display: flex;
@@ -564,7 +569,7 @@ input[type=submit]{
     justify-content: space-evenly;
     margin-right: 40px;
     margin-left: 0px;
-    top: 30%;
+    top: 20%;
     left: 0;
     width: 100%;
     display: flex;
@@ -573,24 +578,23 @@ input[type=submit]{
 .favourite-tile {
     display: inline-block;
     position: relative;
-    color: #555;
+    color: #ffffff;
     padding: 10px 30px;
 	margin: 0px 4px 30px 4px;
-	border: 2px solid #000000;
-	background-color: #fff;
-    -webkit-transition: border 0.2s, color 0.2s;
-    transition:  0.5s;
+	border: 2px solid #da985f;
+	box-shadow: 4px 4px 16px 0px #e0a571;
+	background-color: #222222;
     border-radius: 10px;
     width: 300px;
 }
 
 .movieInfo {
-    position: absolute;
-    top: 580%;
+    position: relative;
+    top: 120%;
     background-color: #181818;
     padding: 10px;
     width: 1400px;
-    height: 800px;
+    height: 1800px;
     left: 50%;
     transform: translate(-50%,-50%);
     /* border-radius: 20px; */
@@ -622,5 +626,47 @@ input[type=submit]{
     height: 100%;
     display: inline-block;
     text-align: center;
+}
+
+#view-form{
+    position: relative;
+    text-align: left;
+}
+
+#view-form .dropdown .dropdown-content{
+    text-align: center;
+}
+
+#view-form .btn{
+    width: 7%;
+    height: 3%;
+    padding: 10px 30px;
+	margin: 0px 0px 0px 0px;
+    text-decoration: none;
+	border: 2px solid #ffffff;
+    border-radius: 20px;
+    background-color: transparent;
+    -webkit-transition: 0.5s;
+    transition:  0.5s; 
+}
+
+.viewPeople {
+    position: relative;
+    justify-content: space-evenly;
+    margin-right: 0px;
+    margin-left: 0px;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.people {
+    display: inline-block;
+    position: relative;
+    padding: 10px 30px;
+	margin: 0px 4px 30px 4px;
+	border: 0px 2px 0px 2px solid #504c4c;
+    width: 300px;
 }
 
