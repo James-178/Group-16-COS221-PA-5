@@ -704,8 +704,6 @@ class Database
 }
 
     
-
-
 $database = Database::instance();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
      
