@@ -403,11 +403,11 @@ class Database
                     }elseif ($column == "imdb_min") {
                         $condition = "t.IMDB_rating  >= $escapedValue";
                         $conditions[] = $condition;
-                     }elseif ($column == "imdb_max") {
+                    }elseif ($column == "imdb_max") {
                         $condition = "t.IMDB_rating  <= $escapedValue";
                         $conditions[] = $condition;
-                     }else {
-                        $condition = "$escapedColumn LIKE '%$escapedValue%'";
+                    }else {
+                        $condition = "t.$escapedColumn LIKE '%$escapedValue%'";
                         $conditions[] = $condition;
                     }
                 }
