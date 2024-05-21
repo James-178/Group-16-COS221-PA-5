@@ -35,12 +35,12 @@
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="email" class="login-label">E-mail:</label>
-                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="youremail@gmail.com" value = "dmtest@plswork.com" required><br>
+                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="youremail@gmail.com" value = "testemail@real.com" required><br>
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="login-label">Password:</label>
-                                <input type = "password" id = "password" name = "password" class = "login-input" value = "LoveYou3000!" required><br>
+                                <input type = "password" id = "password" name = "password" class = "login-input" value = "123Test?" required><br>
                             </div>
 
                             <div id = "error">
@@ -58,5 +58,6 @@
             <!-- </div> -->
     </section>
 </header>
+<script src="js/login.js"></script>
 </body>
 </html>
