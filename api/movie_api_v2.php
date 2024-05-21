@@ -387,18 +387,29 @@ class Database
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $sql_fin = "SELECT title_id FROM titles";
-
-            if(!(empty($search)))
-            {   
+            $sql_fin = "SELECT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id";
+            $where=false;
+            if (!(empty($search))) {
                 foreach ($search as $column => $value) {
-
                     $escapedColumn = mysqli_real_escape_string($conn, $column);
                     $escapedValue = mysqli_real_escape_string($conn, $value);
-                
-                    $condition = "$escapedColumn LIKE '%$escapedValue%'";
-                
-                    $conditions[] = $condition;
+                    if ($column == "genre") {
+                        $condition = "g.$escapedColumn LIKE '%$escapedValue%'";
+                        $conditions[] = $condition;
+                    } elseif ($column == "language_name") {
+                        $condition = "l.name LIKE '%$escapedValue%'";
+                        $conditions[] = $condition;
+                        
+                    }elseif ($column == "imdb_min") {
+                        $condition = "t.IMDB_rating  >= $escapedValue";
+                        $conditions[] = $condition;
+                     }elseif ($column == "imdb_max") {
+                        $condition = "t.IMDB_rating  <= $escapedValue";
+                        $conditions[] = $condition;
+                     }else {
+                        $condition = "$escapedColumn LIKE '%$escapedValue%'";
+                        $conditions[] = $condition;
+                    }
                 }
                 $whereClause = implode(" AND ", $conditions);
                 $sql_fin .= " WHERE $whereClause";
@@ -407,14 +418,14 @@ class Database
             if(!(empty($sort)))
             {
 
-                $sql_fin=$sql_fin." GROUP BY $sort";
+                $sql_fin=$sql_fin." GROUP BY t.$sort";
                 
 
                 if(!(empty($order)))
                 {
                     if (strcasecmp($order, "ASC") === 0 || strcasecmp($order, "DESC") === 0)
                     {
-                        $sql_fin=$sql_fin." ORDER BY $sort $order";
+                        $sql_fin=$sql_fin." ORDER BY t.$sort $order";
                     }
                     else
                     {
@@ -426,7 +437,7 @@ class Database
                     }
                 }
             }
-
+            //echo $sql_fin;
             if (!empty($limit)) {
                 $sql_fin .= " LIMIT ?";
             }
@@ -762,6 +773,9 @@ class Database
 
     public function getStudios()
     {
+    //     header('Access-Control-Allow-Origin: *');
+    //   header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    //   header('Access-Control-Allow-Headers: Content-Type, Authorization');
         $json_data = file_get_contents("php://input");
         $request_data = json_decode($json_data, true);
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
@@ -804,7 +818,9 @@ class Database
 }
 
     
-
+header('Access-Control-Allow-Origin: *');
+      header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+      header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 $database = Database::instance();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

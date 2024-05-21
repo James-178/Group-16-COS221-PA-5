@@ -38,8 +38,8 @@
         <h1 class="title">Find Something to watch</h1>
         <div class="options">
             <div class="btnList">
-                <li><a href="#">MOVIES</a></li>
-                <li><a href="#">SERIES</a></li>
+                <li><a id = "movie-filter" href="#">MOVIES</a></li>
+                <li><a id = "series-filter" href="#">SERIES</a></li>
             </div>
         </div>
         <div><input type="text" placeholder="Search..."></div>
@@ -95,23 +95,23 @@
             <button class="dropbtn">IMDB score</button>
             <div class="dropdown-content">
                 <label class="container">0 - 2
-                    <input type="checkbox">
+                    <input type="checkbox" id = "imdb1">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">2 - 4
-                    <input type="checkbox">
+                    <input type="checkbox" id = "imdb2">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">4 - 6
-                    <input type="checkbox">
+                    <input type="checkbox" id = "imdb3">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">6 - 8
-                    <input type="checkbox">
+                    <input type="checkbox" id = "imdb4">
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">8 - 10
-                    <input type="checkbox">
+                    <input type="checkbox" id = "imdb5">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -121,19 +121,27 @@
                 <button class="dropbtn">Sort</button>
                 <div class="dropdown-content">
                     <label class="container">Title
-                        <input type="checkbox">
+                        <input id = "title-check" type="checkbox">
                         <span class="checkmark"></span>
                     </label>
                     <label class="container">Rating
-                        <input type="checkbox">
+                        <input id = "rating-check" type="checkbox">
                         <span class="checkmark"></span>
                     </label>
                 </div>
             </div>
         </div>
+
+        <div class = sort>
+            <button class = "dropbtn" id = "filter">Filter</button> 
+        </div>
+        
     </div>
-    <span class="listings">
-        <div class="tile">
+
+    
+
+    <span class="listings" id = "listings">
+        <!-- <div class="tile">
             <a href="view.php"><img src="img/ironman.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
             <p>
                 Title: Iron man<br>
@@ -187,7 +195,7 @@
                 IMDB-Rating: 9.5
             </p>
             <div class="btn">Add to Watchlist</div>
-        </div>
+        </div> -->
     </span>
 </header>
 <script src="js/index.js"></script>
