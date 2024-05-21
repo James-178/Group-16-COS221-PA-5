@@ -26,6 +26,7 @@
             </ul>
         </div>
     </nav>
+
     <section class = "login">
             <!-- <div class = "container"> -->
                 
@@ -35,12 +36,20 @@
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="email" class="login-label">E-mail:</label>
+<<<<<<< Updated upstream
+                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="youremail@gmail.com" value = "testemail@real.com" required><br>
+=======
                                 <input type = "text" id = "email" name = "email" class = "login-input" placeholder="youremail@gmail.com" value = "dmtest@plswork.com" required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="login-label">Password:</label>
+<<<<<<< Updated upstream
+                                <input type = "password" id = "password" name = "password" class = "login-input" value = "123Test?" required><br>
+=======
                                 <input type = "password" id = "password" name = "password" class = "login-input" value = "LoveYou3000!" required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div id = "error">
@@ -58,5 +67,6 @@
             <!-- </div> -->
     </section>
 </header>
+<script src="js/login.js"></script>
 </body>
 </html>

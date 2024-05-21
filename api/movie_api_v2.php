@@ -1,6 +1,7 @@
 <?php
 require_once('config.php');
-class Database {
+class Database 
+{
     public static function instance()
     {
     static $instance = null;
@@ -505,6 +506,106 @@ class Database {
         }
     }
 
+    public function GetLanguages()
+    {
+        $json_data = file_get_contents("php://input");
+        $data = json_decode($json_data, true);
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+        if (!$conn) 
+        {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        if ($data!==null)
+        {
+           // $title_id = isset($request_data["title_id"]) ? $request_data["title_id"] : null;
+
+            $sql_language = "SELECT name FROM languages";
+            $result = mysqli_query($conn, $sql_language);
+            $languages = array();
+            while ($row = mysqli_fetch_assoc($result)) 
+            {
+                $languages[] = $row['name'];
+            }
+            if (empty($languages) )
+            {
+                $error_response = array(
+                    "status" => "error",
+                    "timestamp" => microtime(true) * 1000,
+                    "data" => "Language not found"
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response);
+                return;
+            }
+            else
+            {
+                $result = array(
+                "status" => "success",
+                "timestamp" => time(),
+                "data" => array(
+                    "language" => $languages
+                )
+            );
+            http_response_code(200);
+            header('Content-Type: application/json');
+            echo json_encode($result);
+        }
+        }
+
+
+    }
+
+    public function GetGenres()
+    {
+        $json_data = file_get_contents("php://input");
+        $data = json_decode($json_data, true);
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+        if (!$conn) 
+        {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        if ($data!==null)
+        {
+           // $title_id = isset($request_data["title_id"]) ? $request_data["title_id"] : null;
+
+            $sql_genre = "SELECT DISTINCT genre FROM genres";
+            $result = mysqli_query($conn, $sql_genre);
+            $genres = array();
+            while ($row = mysqli_fetch_assoc($result)) 
+            {
+                $genres[] = $row['genre'];
+            }
+            if (empty($genres) )
+            {
+                $error_response = array(
+                    "status" => "error",
+                    "timestamp" => microtime(true) * 1000,
+                    "data" => "Genres not found"
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response);
+                return;
+            }
+            else
+            {
+                $result = array(
+                "status" => "success",
+                "timestamp" => time(),
+                "data" => array(
+                    "genres" => $genres
+                )
+            );
+            http_response_code(200);
+            header('Content-Type: application/json');
+            echo json_encode($result);
+        }
+        }
+
+
+    }
+
     public function Register()
     {
         $json_data = file_get_contents("php://input");
@@ -580,6 +681,8 @@ class Database {
             $stmt->bind_param("sssssss", $first_name, $last_name, $dob,$email, $salt,$hashed_password, $api_key);
             if (!($stmt->execute())) {
                 echo "Error: " . $stmt->error;
+            }else{
+                echo json_encode(array("status" => "success"));
             }
             $stmt->close();
             $conn->close();
@@ -656,7 +759,51 @@ class Database {
                 echo json_encode($error_response);
         }
     }
+
+    public function getStudios()
+    {
+        $json_data = file_get_contents("php://input");
+        $request_data = json_decode($json_data, true);
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+
+        if (!$conn) 
+        {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        
+        $querystudio = "SELECT * from studios";
+
+        $result = $conn->query($querystudio);
+
+        $res = [];
+        if ($result->num_rows > 0) 
+        {
+            while ($resrow = $result->fetch_assoc()) 
+            {
+                $res[] = $resrow;
+            }
+        }
+
+        $titles[]=$res;
+
+        $response = array( 
+            "status"=> "success",
+            "timestamp"=> microtime(true) *1000,
+            "data"=>$titles
+            );
+
+            header("Content-Type: application/json");
+            echo json_encode($response);
+
+        	mysqli_close($conn);
+
+
+    }
+
 }
+
+    
 
 
 $database = Database::instance();
@@ -675,6 +822,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $database->Login();
             return;
         }
+        
         $api_key = isset($request_data["api_key"]) ? $request_data["api_key"] : null;
 
         if($api_key === null)
@@ -714,9 +862,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } 
         mysqli_stmt_close($stmt);
 
+        if($request_data["type"] === "studios")
+        {
+            $database->getStudios();
+            return;
+        }
+
         if($request_data["type"] === "GetTitle")
         {
             $database->GetTitle();
+            return;
+        }
+
+        if($request_data["type"] === "GetGenres")
+        {
+            $database->GetGenres();
+            return;
+        }
+
+        if($request_data["type"] === "GetLanguages")
+        {
+            $database->GetLanguages();
             return;
         }
 
@@ -757,6 +923,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         {
             $database->UpdateTitle();
         }
+        
 
         else
         {

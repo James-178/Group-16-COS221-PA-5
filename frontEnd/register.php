@@ -36,22 +36,43 @@
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="name" class="login-label">Name:</label>
+<<<<<<< Updated upstream
+                                <input type = "text" id = "name" name = "name" class = "login-input" placeholder="Tony" value = "Tony" required><br>
+=======
                                 <input type = "text" id = "name" name = "name" class = "login-input" placeholder="Tony" required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="surname" class="login-label">Surname:</label>
+<<<<<<< Updated upstream
+                                <input type = "text" id = "surname" name = "surname" class = "login-input" placeholder="Stark" value="Stark" required><br>
+=======
                                 <input type = "text" id = "surname" name = "surname" class = "login-input" placeholder="Stark" required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="login-label">E-mail:</label>
+<<<<<<< Updated upstream
+                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="TonyStark@gmail.com" value="TonyStark@gmail.com" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob" class="login-label">Date of Birth:</label>
+                                <input type = "date" id = "dob" name = "dob" class = "login-input" required><br>
+=======
                                 <input type = "text" id = "email" name = "email" class = "login-input" placeholder="TonyStark@gmail.com" required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="login-label">Password:</label>
+<<<<<<< Updated upstream
+                                <input type = "password" id = "password" name = "password" class = "login-input" value = "LoveYou3000!" required><br>
+=======
                                 <input type = "password" id = "password" name = "password" class = "login-input"  required><br>
+>>>>>>> Stashed changes
                             </div>
 
                             <div id = "error">
@@ -69,5 +90,6 @@
             <!-- </div> -->
         </section>
 </header>
+<script src = "js/register.js"></script>
 </body>
 </html>

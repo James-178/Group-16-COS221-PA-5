@@ -47,7 +47,7 @@ ul {
 }
 
 body{
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/BG.png);
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/cybercity.jpg);
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -241,11 +241,6 @@ input[type=submit]{
     color: white;
 }
 
-#reviewScore{
-    background-color: #000000;
-    color: white;
-}
-
 /* Style the search box inside the navigation bar */
 .hero-text-box input[type=text] {
     border: none;
@@ -298,7 +293,7 @@ input[type=submit]{
     display: none;
     position: absolute;
     background-color: #1d1d1d;
-    min-width: 155px;
+    min-width: 135px;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9;
@@ -409,15 +404,13 @@ input[type=submit]{
 
  /* Listings */
 
-.listings {
+.studios {
     position: relative;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-right: 140px;
     margin-left: 0px;
-
-    top: 18%;
-
+    top: 21%;
     left: 0;
     width: 100%;
     display: flex;
@@ -574,7 +567,7 @@ input[type=submit]{
     justify-content: space-evenly;
     margin-right: 40px;
     margin-left: 0px;
-    top: 20%;
+    top: 30%;
     left: 0;
     width: 100%;
     display: flex;
@@ -583,23 +576,24 @@ input[type=submit]{
 .favourite-tile {
     display: inline-block;
     position: relative;
-    color: #ffffff;
+    color: #555;
     padding: 10px 30px;
 	margin: 0px 4px 30px 4px;
-	border: 2px solid #da985f;
-	box-shadow: 4px 4px 16px 0px #e0a571;
-	background-color: #222222;
+	border: 2px solid #000000;
+	background-color: #fff;
+    -webkit-transition: border 0.2s, color 0.2s;
+    transition:  0.5s;
     border-radius: 10px;
     width: 300px;
 }
 
 .movieInfo {
-    position: relative;
-    top: 120%;
+    position: absolute;
+    top: 580%;
     background-color: #181818;
     padding: 10px;
     width: 1400px;
-    height: 1800px;
+    height: 800px;
     left: 50%;
     transform: translate(-50%,-50%);
     /* border-radius: 20px; */
@@ -631,47 +625,5 @@ input[type=submit]{
     height: 100%;
     display: inline-block;
     text-align: center;
-}
-
-#view-form{
-    position: relative;
-    text-align: left;
-}
-
-#view-form .dropdown .dropdown-content{
-    text-align: center;
-}
-
-#view-form .btn{
-    width: 7%;
-    height: 3%;
-    padding: 10px 30px;
-	margin: 0px 0px 0px 0px;
-    text-decoration: none;
-	border: 2px solid #ffffff;
-    border-radius: 20px;
-    background-color: transparent;
-    -webkit-transition: 0.5s;
-    transition:  0.5s; 
-}
-
-.viewPeople {
-    position: relative;
-    justify-content: space-evenly;
-    margin-right: 0px;
-    margin-left: 0px;
-    top: 0%;
-    left: 0;
-    width: 100%;
-    display: flex;
-}
-
-.people {
-    display: inline-block;
-    position: relative;
-    padding: 10px 30px;
-	margin: 0px 4px 30px 4px;
-	border: 0px 2px 0px 2px solid #504c4c;
-    width: 300px;
 }
 

@@ -25,6 +25,15 @@
             </ul>
         </div>
     </nav>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
     <div class="hero-text-box">
         <h1 class="title">Find Something to watch</h1>
         <div class="options">
@@ -42,8 +51,8 @@
         </div>
         <div class="dropdown">
             <button class="dropbtn">Language</button>
-            <div class="dropdown-content">
-                <label class="container">English
+            <div class="dropdown-content" id = "lang" style="overflow-y: auto; max-height: 200px;">
+                <!-- <label class="container">English
                     <input type="checkbox">
                     <span class="checkmark"></span>
                 </label>
@@ -58,13 +67,13 @@
                 <label class="container">Arabic
                     <input type="checkbox">
                     <span class="checkmark"></span>
-                </label>
+                </label> -->
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">Genres</button>
-            <div class="dropdown-content">
-                <label class="container">Horror
+            <div class="dropdown-content" id = "genre" style="overflow-y: auto; max-height: 200px;">
+                <!-- <label class="container">Horror
                     <input type="checkbox">
                     <span class="checkmark"></span>
                 </label>
@@ -79,7 +88,7 @@
                 <label class="container">Reality
                     <input type="checkbox">
                     <span class="checkmark"></span>
-                </label>
+                </label> -->
             </div>
         </div>
         <div class="dropdown">
@@ -181,5 +190,6 @@
         </div>
     </span>
 </header>
+<script src="js/index.js"></script>
 </body>
 </html>
