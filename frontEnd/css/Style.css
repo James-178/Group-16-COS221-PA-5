@@ -293,7 +293,7 @@ input[type=submit]{
     display: none;
     position: absolute;
     background-color: #1d1d1d;
-    min-width: 135px;
+    min-width: 155px;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9;
@@ -627,3 +627,20 @@ input[type=submit]{
     text-align: center;
 }
 
+#genre::-webkit-scrollbar {
+    display: none;
+  }
+  
+#genre {
+-ms-overflow-style: none; 
+scrollbar-width: none;  
+}
+
+#lang::-webkit-scrollbar {
+display: none;
+}
+
+#lang {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
