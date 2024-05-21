@@ -11,7 +11,7 @@
             if(res.status == "success"){
                 const d = res.data;
                 const languages = d.language;
-                console.log(languages);
+               // console.log(languages);
                 languages.forEach(language => {
                     const container = document.createElement('label');
                     container.className = 'container';
@@ -51,7 +51,7 @@
             if(res.status == "success"){
                 const d2 = res.data;
                 const languages2 = d2.genres;
-                console.log(languages2);
+               // console.log(languages2);
                 languages2.forEach(language => {
                     const container = document.createElement('label');
                     container.className = 'container';
@@ -125,7 +125,7 @@
                                 }
                             }
                         }else{  
-                            img.src = 'img/ironman.jpg';
+                            img.src = 'img/simpleEdit.jpg';
                             img.width = 300;
                             img.height = 300;
                             img.alt = 'image of movie';
@@ -134,7 +134,7 @@
                         }
                         
                     }
-                    imageRequest.open('GET', `https://api.themoviedb.org/3/movie/${index}/images`);
+                    imageRequest.open('GET', `https://api.themoviedb.org/3/movie/${movie[0].title_id}/images`);
                     imageRequest.setRequestHeader('accept', 'application/json');
                     imageRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhjNzk1ZDlmY2JmMzczZDMyZGZhNzVlZDIzYjUzNyIsInN1YiI6IjY2NGNhODAyZmQ0MWQ1M2NhZmYyZGRlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gkyF7TnTPIp4G-J6gMfFuETtXZe6TSw1wk7Yip9zt2U');
                     imageRequest.send();
@@ -254,7 +254,8 @@
     });
 
     let filter = document.getElementById("filter");
-    
+    let searchTitle = document.getElementById("search-bar");
+    console.log(searchTitle.value);
     filter.addEventListener("click", function(){
         let filterParams = {
             "type":"GetAllTitles",
@@ -309,6 +310,11 @@
             filterParams.search.imdb_min = 8;
             filterParams.search.imdb_max = 10;
         }
+
+        if(searchTitle.value != ""){
+            filterParams.search.name = searchTitle.value;
+        }
+        console.log(filterParams);
         dataReq(filterParams, Math.floor(Math.random() * 801) + 200);
     });
 

@@ -42,13 +42,13 @@
                 <li><a id = "series-filter" href="#">SERIES</a></li>
             </div>
         </div>
-        <div><input type="text" placeholder="Search..."></div>
-        <div class="dropdown">
+        <div><input type="text" id = "search-bar" placeholder="Search..."></div>
+        <!-- <div class="dropdown">
             <button class="dropbtn">Release Year</button>
             <div class="dropdown-content">
                 <input id="year" type="number" value="2024"><br>
             </div>
-        </div>
+        </div> -->
         <div class="dropdown">
             <button class="dropbtn">Language</button>
             <div class="dropdown-content" id = "lang" style="overflow-y: auto; max-height: 200px;">

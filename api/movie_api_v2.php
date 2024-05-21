@@ -387,7 +387,7 @@ class Database
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $sql_fin = "SELECT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id";
+            $sql_fin = "SELECT DISTINCT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id";
             $where=false;
             if (!(empty($search))) {
                 foreach ($search as $column => $value) {
