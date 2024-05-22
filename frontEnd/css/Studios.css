@@ -386,7 +386,8 @@ input[type=submit]{
   }
   
   /* Style the checkmark/indicator */
-  .container .checkmark:after {
+  .container .checkmark:after 
+  {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -431,14 +432,11 @@ input[type=submit]{
     width: 300px;
 }
 
-
-
 .movieImage
 {
     width: fit-content;
     height: fit-content;
     width: 60%;
-    background-color: white;
 }
 
  /* Agents */
