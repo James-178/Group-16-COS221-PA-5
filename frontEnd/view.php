@@ -17,9 +17,9 @@
            <div class="row">
                <img src="img/simpleEdit.jpg" width = "100" height= "100" alt="Website Logo" class = "logo"/>
                     <ul class="main-nav">
-                        <li><a href="index.html">Listings</a></li>
-                        <li><a href="studios.html">Studios</a></li>
-                        <li><a href="watchlist.html">Watchlist</a></li>
+                        <li><a href="index.php">Listings</a></li>
+                        <li><a href="studios.php">Studios</a></li>
+                        <li><a href="watchlist.php">Watchlist</a></li>
                         <li><a href="register.php">Register</a></li>
                         <li><a href="login.php">Login</a></li>
                     </ul>
