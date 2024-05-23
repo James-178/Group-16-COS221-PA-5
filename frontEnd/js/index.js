@@ -37,8 +37,8 @@
 
     let langaugeParams = {
         
-        "type" : "GetLanguages",
-        "api_key" : "1L9v3SkNkKxUcARx3YxL"//change to local storage
+        type : "GetLanguages",
+        api_key : "1L9v3SkNkKxUcARx3YxL"//change to local storage
     }
     langaugeDataReq.open("POST", "https://localhost/prac5/api/movie_api_v2.php");
     langaugeDataReq.send(JSON.stringify(langaugeParams));
@@ -76,9 +76,8 @@
     }
 
     let genreParams = {
-        
-        "type" : "GetGenres",
-        "api_key" : "1L9v3SkNkKxUcARx3YxL" //change to local storage
+        type : "GetGenres",
+        api_key : "1L9v3SkNkKxUcARx3YxL" //change to local storage
     }
 
     genreDataReq.open("POST", "https://localhost/prac5/api/movie_api_v2.php");
@@ -90,7 +89,6 @@
             if(this.status == 200){
 
                 res = JSON.parse(this.responseText);
-
                 let data = res.data;
                 let container = document.getElementById("listings");
                 container.innerHTML = "";
@@ -99,7 +97,7 @@
                     const tile = document.createElement('div');
                     tile.className = 'tile';
                     tile.addEventListener("click", function(){
-                        window.location.href = "view.php";
+                        window.location.href = "view.php?"+movie[0].title_id;
                     })
 
                     const img = document.createElement('img');
@@ -166,9 +164,9 @@
     }
 
     let titleParams = {
-        "type":"GetAllTitles",
-        "api_key":"1MFEaA8FrFVRiMBdVdFB",
-        "limit" : 20
+        type:"GetAllTitles",
+        api_key:"1MFEaA8FrFVRiMBdVdFB",
+        limit : 20
     }
 
     dataReq(titleParams, 2);
@@ -216,11 +214,11 @@
 
     moviesFilter.addEventListener("click", function(){
         let movieParams = {
-            "type":"GetAllTitles",
-            "api_key":"1MFEaA8FrFVRiMBdVdFB",
-            "limit" : 20,
-            "search" : {
-                "is_movie" : 1
+            type:"GetAllTitles",
+            api_key:"1MFEaA8FrFVRiMBdVdFB",
+            limit : 20,
+            search : {
+                is_movie : 1
             }
         }
         dataReq(movieParams, 62);
@@ -228,11 +226,11 @@
 
     sereisFilter.addEventListener("click", function(){
         let seriesParams = {
-            "type":"GetAllTitles",
-            "api_key":"1MFEaA8FrFVRiMBdVdFB",
-            "limit" : 20,
-            "search" : {
-                "is_movie" : 0
+            type:"GetAllTitles",
+            api_key:"1MFEaA8FrFVRiMBdVdFB",
+            limit : 20,
+            search : {
+                is_movie : 0
             }
         }
         dataReq(seriesParams, 100);
@@ -258,10 +256,10 @@
     console.log(searchTitle.value);
     filter.addEventListener("click", function(){
         let filterParams = {
-            "type":"GetAllTitles",
-            "api_key":"1MFEaA8FrFVRiMBdVdFB",
-            "limit" : 20,
-            "search" : {
+            type:"GetAllTitles",
+            api_key:"1MFEaA8FrFVRiMBdVdFB",
+            limit : 20,
+            search : {
                 
             }
         }
