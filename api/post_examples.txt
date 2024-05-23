@@ -160,3 +160,12 @@ post:
     "api_key":"1MFEaA8FrFVRiMBdVdFB",
     "title_id": 501
 }
+
+post:
+{   
+    "type" : "addReview",
+    "api_key": "1MFEaA8FrFVRiMBdVdFB",
+    "review": "Great Movie!!!",
+    "rating": 7,
+    "title_id": 10
+}
