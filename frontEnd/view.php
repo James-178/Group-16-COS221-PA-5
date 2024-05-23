@@ -27,72 +27,51 @@
         </nav> 
             <div class="movieInfo">
                 <div class="shortInfo">
-                    <img src="img/ironman.jpg" alt="image of movie" width="300" height="300">
-                    <p>
-                        Title: Iron man<br>
-                        Release Year: 2008<br>
-                        Genre: Sci-fi<br>
-                        Language: English<br>
-                        IMDB-Rating: 9.7<br>
-                        Duration: 1 
-                    </p>
+                    <img id="view-image" src="" alt="image of movie" width="300" height="300">
+                    <div id="view-info"></div>
                 </div>
+
                 <div class="longInfo">
                     <h2>Description</h2>
-                    <p>
-                        Iron Man is a 2008 American superhero film based on the Marvel Comics character of the same name. 
-                        Produced by Marvel Studios and distributed by Paramount Pictures,[a] it is the first film in the Marvel Cinematic Universe (MCU). 
-                        Directed by Jon Favreau from a screenplay by the writing teams of Mark Fergus and Hawk Ostby, and Art Marcum and Matt Holloway, 
-                        the film stars Robert Downey Jr. as Tony Stark / Iron Man alongside Terrence Howard, Jeff Bridges, Gwyneth Paltrow, Leslie Bibb, and Shaun Toub. 
-                        In the film, following his escape from captivity by a terrorist group, world-famous industrialist and master engineer Tony Stark builds a mechanized suit of armor and 
-                        becomes the superhero Iron Man. 
-                    </p>
+                    <p id="Description"></p>
                     <div class="viewPeople">
                         <div class="people">
                             <h2>Actors</h2>
-                                <ul>
-                                    <li>Robert Downey JR</li> 
-                                    <li>Robert Downey JR</li> 
-                                    <li>Robert Downey JR</li>
-                                </ul>
-                        </div>
-
-                        <div class="people">
-                            <h2>Directors</h2>
-                                <ul>
-                                    <li>Robert Downey JR</li> 
-                                    <li>Robert Downey JR</li> 
-                                    <li>Robert Downey JR</li> 
-                                </ul>
+                                <ul id="Actors"></ul>
                         </div>
 
                         <div class="people">
                             <h2>Crew</h2>
-                                <ul>
-                                    <li>Robert Downey JR</li>
-                                    <li>Robert Downey JR</li>  
-                                    <li>Robert Downey JR</li> 
-                                </ul>
+                                <ul id="Crew"></ul>
+                        </div>
+
+                        <div class="people">
+                            <h2>Director</h2>
+                                <ul id="Director"></ul>
                         </div>
                     </div>
 
+                    <h2>Reviews</h2>
+                    <p id="Reviews"></p>
 
-                    <h2>Leave a Review: </h2>
+                    <h2 align="left" margin-left="50px">Leave a Review</h2>
                     <form action="" id="view-form">
                         <label for="review"></label>
                         <textarea id="review" name="review" rows="4"cols="50">Great Movie!!!</textarea>
                         <div class="dropdown">
                             <button class="dropbtn">Review Score:</button>
                             <div class="dropdown-content">
-                                <input id="reviewScore" type="number" value="9">
+                                <input id="rating" type="number" value="9">
                             </div>
                         </div>
                         <br>
-                        <div class="btn">Submit</div>
+                        <div class="btn" onclick="submitReview()">Submit</div>
                     </form>
                 </div>
             </div>
                     
 </header>
+<script type="text/javascript" src="JS/view.js"></script>
+
 </body>
 </html>
