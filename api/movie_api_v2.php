@@ -786,7 +786,7 @@ class Database
         }
 
         
-        $querystudio = "SELECT * from studios";
+        $querystudio = "SELECT DISTINCT studios.*, ceo.first_name, ceo.last_name, studio_phone.phone, studio_email.email FROM studios JOIN studio_phone ON studios.studio_id = studio_phone.studio_id JOIN ceo ON studios.ceo_id = ceo.ceo_id JOIN studio_email ON studios.studio_id = studio_email.studio_id GROUP BY studios.studio_id, ceo.first_name, studio_phone.phone, studio_email.email";
 
         $result = $conn->query($querystudio);
 

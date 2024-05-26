@@ -814,6 +814,8 @@ class Database
 
     }
 
+    
+
     public function addReview()
     {
         $json_data = file_get_contents("php://input");
@@ -907,7 +909,196 @@ class Database
         }
     }
 
+    public function getRecommend()
+    {
+        $json_data = file_get_contents("php://input");
+        $request_data = json_decode($json_data, true);
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+
+        if (!$conn) 
+        {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $search = isset($request_data["search"]) ? $request_data["search"] : null;
+        $is_Movie = isset($request_data["is_Movie"]) ? $request_data["is_Movie"] : null;
+        $duration = isset($request_data["search"]["duration"]) ? $request_data["search"]["duration"] : null;
+        // $language = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
+        $limit = isset($request_data["limit"]) ? $request_data["limit"] : null;
+        $sort = isset($request_data["sort"]) ? $request_data["sort"] : null;
+
+        //408 to 536 for the query function
+
+            $sql_fin = "SELECT t.title_id, t.duration FROM titles t JOIN languages l ON t.language_id = l.language_id";
+            $where=false;
+            if (!(empty($search))) 
+            {
+                foreach ($search as $column => $value) 
+                {
+                    $escapedColumn = mysqli_real_escape_string($conn, $column);
+                    $escapedValue = mysqli_real_escape_string($conn, $value);
+                    // echo $column . " " . $value; 
+                    if ($column == "language_name") 
+                    {
+                        $condition = "l.name LIKE '%$escapedValue%'";
+                        $conditions[] = $condition;
+                        //  $sql_fin = "SELECT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id WHERE l.name LIKE '%$escapedValue%'";
+                        //  $where=true;
+                    } 
+                    elseif($column == "is_movie")
+                    {
+                        $condition = "t.is_movie = '$escapedValue'";
+                        $conditions[] = $condition;
+                    }
+                    elseif($column == "duration")
+                    {
+                        // quick = 45 to 83
+                        // short = 84 to 121
+                        // medium 122 to 159
+                        // long 160 to 200
+
+                        if ($duration == "Quick") 
+                        {
+                            $condition = "t.duration >= 45 AND t.duration <= 83";
+                            $conditions[] = $condition;
+                        }
+                        else if($duration == "Short")
+                        {
+                            $condition = "t.duration >= 84 AND t.duration <= 121";
+                            $conditions[] = $condition;
+                        }
+                        else if($duration == "Medium")
+                        {
+                            $condition = "t.duration >= 122 AND t.duration <= 159";
+                            $conditions[] = $condition;
+                        }
+                        else if($duration == "Long")
+                        {
+                            $condition = "t.duration >= 160 AND t.duration <= 200";
+                            $conditions[] = $condition;
+                        }
+                        
+                    }
+                    else 
+                    {
+                        $condition = "$escapedColumn LIKE '%$escapedValue%'";
+                        $conditions[] = $condition;
+                    }
+                }
+                $whereClause = implode(" AND ", $conditions);
+                $sql_fin .= " WHERE $whereClause";
+            }
+
+            if(!(empty($sort)))
+            {
+
+                //$sql_fin=$sql_fin." GROUP BY $sort";
+
+                if(!(empty($order)))
+                {
+                    if (strcasecmp($order, "ASC") === 0 || strcasecmp($order, "DESC") === 0)
+                    {
+                        $sql_fin=$sql_fin." ORDER BY $sort $order";
+                    }
+                    else
+                    {
+                        $error_response = array( 
+                            "status" => "error",
+                            "timestamp" => microtime(true) * 1000,
+                            "data" => "Order parameters are incorrect"   
+                        );   
+                    }
+                }
+            }
+
+            
+            $sql_fin .= " LIMIT 20";
+            
+            $stmt = mysqli_prepare($conn, $sql_fin);
+            if (!empty($limit)) 
+            {
+                mysqli_stmt_bind_param($stmt, "i", $limit);
+            }
+            mysqli_stmt_execute($stmt);
+
+            $result2 = mysqli_stmt_get_result($stmt);
+            if ($result2) 
+            {
+                $rows = array();
+            
+                while ($row = mysqli_fetch_assoc($result2)) 
+                {
+                    $rows[] = $row;
+                }
+
+                function prepend_t($str) 
+                {
+                    return "t." . $str;
+                }
+                  
+                $titles = [];
+                foreach ($rows as $row) 
+                {
+                    
+                    $title_id= $row['title_id'];
+                    $sql_get="SELECT  t.*,  s.name AS studio_name,  l.name AS language_name, 
+                    GROUP_CONCAT(DISTINCT CONCAT(a.first_name, ' ', a.last_name) ORDER BY a.first_name ASC SEPARATOR ', ') AS actor_names,
+                    GROUP_CONCAT(DISTINCT CONCAT(dp.first_name, ' ', dp.last_name) ORDER BY dp.first_name ASC SEPARATOR ', ') AS director,
+                    GROUP_CONCAT(DISTINCT CONCAT(cp.first_name, ' ', cp.last_name) ORDER BY cp.first_name ASC SEPARATOR ', ') AS crew,
+                    GROUP_CONCAT(DISTINCT r.review ORDER BY r.review ASC SEPARATOR ', ') AS reviews,
+                    GROUP_CONCAT(DISTINCT g.genre ORDER BY g.genre ASC SEPARATOR ', ') AS genres
+                    FROM  titles t
+                    INNER JOIN studios s ON t.studio_id = s.studio_id
+                    INNER JOIN languages l ON t.language_id = l.language_id
+                    INNER JOIN title_actors ta ON t.title_id = ta.title_id
+                    INNER JOIN actors a ON ta.actor_id = a.actor_id
+                    INNER JOIN title_people tp ON t.title_id = tp.title_id
+                    INNER JOIN people p ON tp.person_id = p.person_id
+                    LEFT JOIN directors d ON p.person_id = d.person_id
+                    LEFT JOIN people dp ON d.person_id = dp.person_id
+                    LEFT JOIN crew c ON p.person_id = c.person_id
+                    LEFT JOIN people cp ON c.person_id = cp.person_id
+                    LEFT JOIN genres g ON t.title_id = g.title_id
+                    LEFT JOIN reviews r ON t.title_id = r.title_id
+                    WHERE t.title_id = $title_id LIMIT 10";
+
+                    $result = $conn->query($sql_get);
+                    
+                    $res = [];
+                    if ($result->num_rows > 0) 
+                    {
+                        while ($resrow = $result->fetch_assoc()) 
+                        {
+                            $res[] = $resrow;
+                        }
+                    }
+                    $titles[]=$res;
+                }
+                $response = array( 
+                    "status"=> "success",
+                    "timestamp"=> microtime(true) *1000,
+                    "data"=>$titles
+                    );
+                    header("Content-Type: application/json");
+                    echo json_encode($response);
+            }
+            else
+            {
+                $response = array( 
+                "status"=> "error",
+                "timestamp"=> microtime(true) *1000,
+                "data"=>$titles,
+                "message"=> "No films found for this filter"    
+                );
+                header("Content-Type: application/json");
+                echo json_encode($response);
+            }
+            mysqli_close($conn);
+    }
+
 }
+
+
 
     
 header('Access-Control-Allow-Origin: *');
@@ -973,6 +1164,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if($request_data["type"] === "studios")
         {
             $database->getStudios();
+            return;
+        }
+
+        if ($request_data["type"] === "recommend") 
+        {
+            $database->getRecommend();
             return;
         }
 
