@@ -1,3 +1,5 @@
+<!-- studios/php -->
+
 <!doctype html>
 <html>
 <head>
@@ -12,77 +14,15 @@
 </head>
 <body>
 
-<nav class="sticky">
-        <div class="row">
-            <img src="img/simpleEdit.jpg" width="100" height="100" alt="Website Logo" class="logo"/>
-            <ul class="main-nav">
-                <li><a href="index.php">Listings</a></li>
-                <li><a class="current" href="studios.php" >Studios</a></li>
-                <li><a href="watchlist.php">Watchlist</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </div>
-</nav>
+    <?php include('nav.php'); ?>
 
-<div class="hero-text-box">
-        <h1 class="title">Studios</h1>
-</div>
+    <div class="hero-text-box">
+            <h1 class="title">Studios</h1>
+    </div>
 
-<span class="studios" id="studios">
-        <!-- <div class="tile">
-            <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Name: Lucas Film<br>
-                location: 378 MountaiView Drive, Johannesburg, Gauteng<br>
-                Email: lucasfms@gmail.com<br>
-                Phone Nmber: 011 524 7894<br>
-            </p>
-            
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Name: Lucas Film<br>
-                location: 378 MountaiView Drive, Johannesburg, Gauteng<br>
-                Email: lucasfms@gmail.com<br>
-                Phone Nmber: 011 524 7894<br>
-            </p>
-            
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Name: Lucas Film<br>
-                location: 378 MountaiView Drive, Johannesburg, Gauteng<br>
-                Email: lucasfms@gmail.com<br>
-                Phone Nmber: 011 524 7894<br>
-            </p>
-            
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Name: Lucas Film<br>
-                location: 378 MountaiView Drive, Johannesburg, Gauteng<br>
-                Email: lucasfms@gmail.com<br>
-                Phone Nmber: 011 524 7894<br>
-            </p>
-            
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/lucas.png" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Name: Lucas Film<br>
-                location: 378 MountaiView Drive, Johannesburg, Gauteng<br>
-                Email: lucasfms@gmail.com<br>
-                Phone Nmber: 011 524 7894<br>
-            </p>
-            
-        </div>-->
-    </span> 
+    <span class="studios" id="studios"></span> 
 
     <script type="text/javascript" src="JS/studios.js"></script>
-
+    <script src = "js/global.js"></script>
 </body>
 </html>

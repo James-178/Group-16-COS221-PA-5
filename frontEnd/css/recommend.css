@@ -1,10 +1,12 @@
+/* recommend.css */
+
 #e67e22
 #cf6d17
 
 *{
-margin: 0px;
-padding: 0px;
-box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 html{

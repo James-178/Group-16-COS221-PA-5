@@ -1,3 +1,7 @@
+<!-- add.php -->
+
+<?php require_once('../api/config.php'); ?>
+
 <!doctype html>
 <html>
 <head>
@@ -7,19 +11,7 @@
 </head>
 <body>
 <header>
-    <nav class="sticky">
-        <div class="row">
-            <img src="img/simpleEdit.jpg" width="100" height="100" alt="Website Logo" class="logo"/>
-            <ul class="main-nav">
-                <li><a href="index.php">Listings</a></li>
-                <li><a href="studios.php">Studios</a></li>
-                <li><a href="watchlist.php">Watchlist</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a class="current" href="login.php">Login</a></li>
-                <li><a href="admin.php">Admin</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php include('nav.php'); ?>
 </header>
 <main>
     <h1>Add New Movie</h1>
@@ -38,7 +30,7 @@
         <select id="language_id" name="language_id" required>
             <?php
             // Fetch language data from the database
-            $conn = new mysqli("your_server", "your_username", "your_password", "your_database");
+            $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
@@ -81,7 +73,7 @@
         $language_id = $_POST["language_id"];
         $studio_id = $_POST["studio_id"];
 
-        $conn = new mysqli("your_server", "your_username", "your_password", "your_database");
+        $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -91,7 +83,7 @@
                     VALUES ('$name', '$release_year', '$description', '$duration', '$IMDB_rating', '$language_id', '$studio_id')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "New movie added successfully";
+            header("Location: admin.php");
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -100,5 +92,7 @@
     }
     ?>
 </main>
+<script src = "js/global.js"></script>
+<script src = "js/admin.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+<!-- index.php -->
+
 <!doctype html>
 <html>
 <head>
@@ -13,18 +15,7 @@
 
 <body>
 <header>
-    <nav class="sticky">
-        <div class="row">
-            <img src="img/simpleEdit.jpg" width="100" height="100" alt="Website Logo" class="logo"/>
-            <ul class="main-nav">
-                <li><a class="current" href="index.php">Listings</a></li>
-                <li><a href="studios.php">Studios</a></li>
-                <li><a href="watchlist.php">Watchlist</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php include('nav.php'); ?>
 
     <br>
     <br>
@@ -43,52 +34,17 @@
             </div>
         </div>
         <div><input type="text" id = "search-bar" placeholder="Search..."></div>
-        <!-- <div class="dropdown">
-            <button class="dropbtn">Release Year</button>
-            <div class="dropdown-content">
-                <input id="year" type="number" value="2024"><br>
-            </div>
-        </div> -->
+        
         <div class="dropdown">
             <button class="dropbtn">Language</button>
             <div class="dropdown-content" id = "lang" style="overflow-y: auto; max-height: 200px;">
-                <!-- <label class="container">English
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Russian
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Japanese
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Arabic
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label> -->
+                
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">Genres</button>
             <div class="dropdown-content" id = "genre" style="overflow-y: auto; max-height: 200px;">
-                <!-- <label class="container">Horror
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Fantasy
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Romance
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">Reality
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label> -->
+                
             </div>
         </div>
         <div class="dropdown">
@@ -141,63 +97,10 @@
     
 
     <span class="listings" id = "listings">
-        <!-- <div class="tile">
-            <a href="view.php"><img src="img/ironman.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Title: Iron man<br>
-                Release Year: 2008<br>
-                Genre: Superhero<br>
-                Language: English<br>
-                IMDB-Rating: 9
-            </p>
-            <div class="btn">Add to Watchlist</div>
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/Matrix.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Title: The Matrix<br>
-                Release Year: 1999<br>
-                Genre: Sci-fi<br>
-                Language: English<br>
-                IMDB-Rating: 9.7
-            </p>
-            <div class="btn">Add to Watchlist</div>
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/Pantheon.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Title: Pantheon<br>
-                Release Year: 2022<br>
-                Genre: Sci-fi<br>
-                Language: English<br>
-                IMDB-Rating: 9
-            </p>
-            <div class="btn">Add to Watchlist</div>
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/AOT.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Title: Attack on Titan<br>
-                Release Year: 2013<br>
-                Genre: Fantasy<br>
-                Language: Japanese<br>
-                IMDB-Rating: 10
-            </p>
-            <div class="btn">Add to Watchlist</div>
-        </div>
-        <div class="tile">
-            <a href="view.php"><img src="img/Edgerunners.jpg" width="300" height="300" alt="image of movie" class="movieImage"></a>
-            <p>
-                Title: Edgerunners<br>
-                Release Year: 2022<br>
-                Genre: Sci-fi<br>
-                Language: English<br>
-                IMDB-Rating: 9.5
-            </p>
-            <div class="btn">Add to Watchlist</div>
-        </div> -->
+        
     </span>
 </header>
 <script src="js/index.js"></script>
+<script src = "js/global.js"></script>
 </body>
 </html>

@@ -1,66 +1,49 @@
+//register.js
+//allows users to register
+
 const button = document.getElementById("register-btn");
 
-//LoveYou3000!
+//send request when register button is clicked 
 button.addEventListener("click", function() {
-    //remove apikey
     const name = document.getElementById("name");
     const surname = document.getElementById("surname");
     const dob = document.getElementById("dob");
-    console.log(dob.value);
     const email = document.getElementById("email");
     const password = document.getElementById("password");
     const error = document.getElementById("error");
 
     const loginDataReq = new XMLHttpRequest();
     
+    //process the response
     loginDataReq.onload = function(){
         if(this.status === 200){
             res = JSON.parse(this.response);
 
-            if(res.status != "success"){
+            if(res.status != "success"){//unsuccessul register
                 const d = res.data;
-                console.log(res.data);
-               
                 const p = document.createElement("p");
                 p.innerHTML = d;
                 error.appendChild(p); 
                 
-            }else if(res.status == "success"){
-                console.log("here");
+            }else if(res.status == "success"){//successful register
                 const p2 = document.createElement("p");
                 p2.innerHTML = "Successully registered";
-
-                // document.getElementById('login-li').style.display = 'none';
-                // document.getElementById('register-li').style.display = 'none';
-                // document.getElementById('logout-li').style.display = 'block';
-
-                // localStorage.setItem("filterPrice", 0);
-                // localStorage.setItem("filterBedrooms", 0);
-                // localStorage.setItem("filterBathrooms", 0);
-
-                //const intArray = [];
-                //localStorage.setItem("favs", JSON.stringify(intArray));
-
-
                 name.value = "";
                 surname.value = "";
                 email.value = "";
                 password.value = "";     
-                window.location.href = "login.php";
+                window.location.href = "login.php";//user must login after registering
             }
-        }else{
+        }else{//unsuccessful register
             res = JSON.parse(this.response);
-            console.log(res.data);
             const d = res.data;
             
             const p = document.createElement("p");
             p.innerHTML = d;
             error.appendChild(p); 
-            
-            
         }
     }
-
+    //create parameters 
     const params = {
         "type" : "Register",
         "first_name" : name.value,
@@ -70,7 +53,7 @@ button.addEventListener("click", function() {
         "password" : password.value,
     }
 
-
-    loginDataReq.open("POST", "https://localhost/prac5/api/movie_api_v2.php");
+    //opening and sending the response to the api
+    loginDataReq.open("POST", "https://localhost/Group-16-COS221-PA-5/api/movie_api_v3.php");
     loginDataReq.send(JSON.stringify(params));
 })

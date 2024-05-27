@@ -1,3 +1,5 @@
+
+
 <?php
 require_once('config.php');
 class Database 
@@ -24,13 +26,12 @@ class Database
             $language_id = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
             $studio_id = isset($request_data["studio_id"]) ? $request_data["studio_id"] : null;
 
-            if ($name === null || $release_year === null || $description === null || $duration === null ||         
-                $is_movie === null) 
+            if ($name === null || $release_year === null || $description === null || $duration === null || $is_movie === null) 
             {
                 $error_response = array( 
-                "status"=> "error",
-                "timestamp"=> microtime(true) * 1000,
-                "data"=> "Required post parameters(name,release_year,description,duration,is_movie) are missing"   
+                    "status"=> "error",
+                    "timestamp"=> microtime(true) * 1000,
+                    "data"=> "Required post parameters(name,release_year,description,duration,is_movie) are missing"   
                 );
                 header("Content-Type: application/json");
                 echo json_encode($error_response);
@@ -60,9 +61,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
     }
 
@@ -79,10 +80,10 @@ class Database
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Required post parameters are missing"   
-                    );
-                    header("Content-Type: application/json");
-                    echo json_encode($error_response);
-                    return;
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response);
+                return;
             }
             $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
             if (!$conn) 
@@ -104,9 +105,9 @@ class Database
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Title ID not found"   
-                    );
-                    header("Content-Type: application/json");
-                    echo json_encode($error_response); 
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response); 
             }
             mysqli_stmt_close($stmt);
 
@@ -125,9 +126,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
 
     }
@@ -151,9 +152,9 @@ class Database
             if ($title_id==null) 
             {
                 $error_response = array( 
-                "status"=> "error",
-                "timestamp"=> microtime(true) * 1000,
-                "data"=> "Required ID post parameters are missing"   
+                    "status"=> "error",
+                    "timestamp"=> microtime(true) * 1000,
+                    "data"=> "Required ID post parameters are missing"   
                 );
                 header("Content-Type: application/json");
                 echo json_encode($error_response);
@@ -174,6 +175,7 @@ class Database
             }
             mysqli_stmt_bind_result($stmt, $count);
             mysqli_stmt_fetch($stmt);
+
             if($count==0)
             {
                 $error_response = array( 
@@ -244,9 +246,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
     }
 
@@ -260,9 +262,9 @@ class Database
             if ($title_id==null) 
             {
                 $error_response = array( 
-                "status"=> "error",
-                "timestamp"=> microtime(true) * 1000,
-                "data"=> "Required title_id missing"   
+                    "status"=> "error",
+                    "timestamp"=> microtime(true) * 1000,
+                    "data"=> "Required title_id missing"   
                 );
                 header("Content-Type: application/json");
                 echo json_encode($error_response);
@@ -277,9 +279,11 @@ class Database
             $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";
             $stmt = mysqli_prepare($conn, $sql_check_id);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
+
             if (!mysqli_stmt_execute($stmt)) {
                 die("Execution failed: ".mysqli_stmt_error($stmt));
             }
+
             mysqli_stmt_bind_result($stmt, $count);
             mysqli_stmt_fetch($stmt);
             if($count==0)
@@ -288,9 +292,9 @@ class Database
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Title ID not found"   
-                    );
-                    header("Content-Type: application/json");
-                    echo json_encode($error_response); 
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response); 
             }
             mysqli_stmt_close($stmt);
 
@@ -332,8 +336,8 @@ class Database
                     "status"=> "success",
                     "timestamp"=> microtime(true) *1000,
                     "data"=>$rows
-                    );
-                    header("Content-Type: application/json");
+                );
+                header("Content-Type: application/json");
             }
             mysqli_close($conn);      
 
@@ -352,9 +356,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
     }
 
@@ -417,9 +421,6 @@ class Database
 
             if(!(empty($sort)))
             {
-
-                
-
                 if(!(empty($order)))
                 {
                     if (strcasecmp($order, "ASC") === 0 || strcasecmp($order, "DESC") === 0)
@@ -498,9 +499,9 @@ class Database
                     "status"=> "success",
                     "timestamp"=> microtime(true) *1000,
                     "data"=>$titles
-                    );
-                    header("Content-Type: application/json");
-                    echo json_encode($response);
+                );
+                header("Content-Type: application/json");
+                echo json_encode($response);
             }
             mysqli_close($conn);
         }
@@ -510,9 +511,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);            
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);            
         }
     }
 
@@ -562,8 +563,6 @@ class Database
             echo json_encode($result);
         }
         }
-
-
     }
 
     public function GetGenres()
@@ -601,15 +600,15 @@ class Database
             else
             {
                 $result = array(
-                "status" => "success",
-                "timestamp" => time(),
-                "data" => array(
-                    "genres" => $genres
-                )
-            );
-            http_response_code(200);
-            header('Content-Type: application/json');
-            echo json_encode($result);
+                    "status" => "success",
+                    "timestamp" => time(),
+                    "data" => array(
+                        "genres" => $genres
+                    )
+                );
+                http_response_code(200);
+                header('Content-Type: application/json');
+                echo json_encode($result);
         }
         }
 
@@ -639,7 +638,6 @@ class Database
                 return;
             }
 
-
             if (strlen($first_name)>50 || strlen($last_name)>50 || strlen($email)>50 || strlen($password)>55) {
                 http_response_code(400);
                 echo json_encode(array("error" => "Character length exceeded"));
@@ -651,6 +649,7 @@ class Database
                 echo json_encode(array("error" => "Invalid Email"));
                 return;
             }
+
             if (!(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{8,}$/', $password))) {
                 http_response_code(400);
                 echo json_encode(array("error" => "Invalid Password"));
@@ -663,6 +662,7 @@ class Database
             mysqli_stmt_execute($stmt);
             mysqli_stmt_bind_result($stmt, $count);
             mysqli_stmt_fetch($stmt);
+
             if ($count > 0) 
             {
                 $error_response = array(
@@ -703,9 +703,9 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
     }
 
@@ -723,11 +723,11 @@ class Database
             $password = isset($request_data["password"]) ? $request_data["password"] : null;
             $email = isset($request_data["email"]) ? $request_data["email"] : null;
 
-            $sql_salt = "SELECT salt,password,api_key FROM users WHERE email=?";
+            $sql_salt = "SELECT salt, password, api_key, is_admin FROM users WHERE email=?";
             $stmt = mysqli_prepare($conn, $sql_salt);
             mysqli_stmt_bind_param($stmt, "s", $email); 
             mysqli_stmt_execute($stmt);
-            $stmt->bind_result($salt,$stored_hash,$api_key);
+            $stmt->bind_result($salt,$stored_hash,$api_key,$is_admin);
             $stmt->fetch();
             $password=$salt.$password;
             $stmt->close();
@@ -738,7 +738,8 @@ class Database
                     "status" => "success",
                     "timestamp" => microtime(true) * 1000, 
                     "data" => array(
-                        "apikey" => $api_key
+                        "apikey" => $api_key,
+                        "admin" => $is_admin
                     )
                 );
 
@@ -752,10 +753,10 @@ class Database
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Email/Password incorrect"   
-                    );
-                    header("Content-Type: application/json");
-                    echo json_encode($error_response);
-                    return;
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response);
+                return;
             }
         }
         else
@@ -764,17 +765,15 @@ class Database
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
         }
     }
 
     public function getStudios()
     {
-    //     header('Access-Control-Allow-Origin: *');
-    //   header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-    //   header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
         $json_data = file_get_contents("php://input");
         $request_data = json_decode($json_data, true);
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
@@ -784,14 +783,15 @@ class Database
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        
-        $querystudio = "SELECT * from studios";
+        //Quert to retrieve all information from the database about the studios.
+        $querystudio = "SELECT DISTINCT studios.*, ceo.first_name, ceo.last_name, studio_phone.phone, studio_email.email FROM studios JOIN studio_phone ON studios.studio_id = studio_phone.studio_id JOIN ceo ON studios.ceo_id = ceo.ceo_id JOIN studio_email ON studios.studio_id = studio_email.studio_id GROUP BY studios.studio_id, ceo.first_name, studio_phone.phone, studio_email.email";
 
         $result = $conn->query($querystudio);
 
         $res = [];
         if ($result->num_rows > 0) 
         {
+            //If the above query returned anything from the database.
             while ($resrow = $result->fetch_assoc()) 
             {
                 $res[] = $resrow;
@@ -800,18 +800,19 @@ class Database
 
         $titles[]=$res;
 
+        
         $response = array( 
             "status"=> "success",
             "timestamp"=> microtime(true) *1000,
             "data"=>$titles
             );
 
-            header("Content-Type: application/json");
-            echo json_encode($response);
+        header("Content-Type: application/json");
 
-        	mysqli_close($conn);
+        //Return a json response with status success, if the code reaches this point, with all the information retrieved by the query.
+        echo json_encode($response);
 
-
+        mysqli_close($conn);
     }
 
     
@@ -911,6 +912,7 @@ class Database
 
     public function getRecommend()
     {
+        // function that retrieves titles based on their: duration, type of movie, language and release year. 
         $json_data = file_get_contents("php://input");
         $request_data = json_decode($json_data, true);
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
@@ -920,30 +922,29 @@ class Database
             die("Connection failed: " . mysqli_connect_error());
         }
 
+        // check if the json request has all the neccessary parameters.
         $search = isset($request_data["search"]) ? $request_data["search"] : null;
         $is_Movie = isset($request_data["is_Movie"]) ? $request_data["is_Movie"] : null;
         $duration = isset($request_data["search"]["duration"]) ? $request_data["search"]["duration"] : null;
-        // $language = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
+        $language = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
         $limit = isset($request_data["limit"]) ? $request_data["limit"] : null;
         $sort = isset($request_data["sort"]) ? $request_data["sort"] : null;
 
-        //408 to 536 for the query function
-
+            //get the correct title_ids or the parameters passed in.
             $sql_fin = "SELECT t.title_id, t.duration FROM titles t JOIN languages l ON t.language_id = l.language_id";
             $where=false;
             if (!(empty($search))) 
             {
+                // if search is present in the parametrs
                 foreach ($search as $column => $value) 
                 {
                     $escapedColumn = mysqli_real_escape_string($conn, $column);
                     $escapedValue = mysqli_real_escape_string($conn, $value);
-                    // echo $column . " " . $value; 
                     if ($column == "language_name") 
                     {
                         $condition = "l.name LIKE '%$escapedValue%'";
                         $conditions[] = $condition;
-                        //  $sql_fin = "SELECT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id WHERE l.name LIKE '%$escapedValue%'";
-                        //  $where=true;
+                      
                     } 
                     elseif($column == "is_movie")
                     {
@@ -952,6 +953,7 @@ class Database
                     }
                     elseif($column == "duration")
                     {
+                        // What each of the durations correspond to:
                         // quick = 45 to 83
                         // short = 84 to 121
                         // medium 122 to 159
@@ -981,23 +983,26 @@ class Database
                     }
                     else 
                     {
+                        // if none of the $column values match conditions
                         $condition = "$escapedColumn LIKE '%$escapedValue%'";
                         $conditions[] = $condition;
                     }
                 }
+                //Seperate the $conditions array into seperate statements and use the "AND" keyword to join them.
                 $whereClause = implode(" AND ", $conditions);
+
                 $sql_fin .= " WHERE $whereClause";
             }
 
             if(!(empty($sort)))
             {
-
-                //$sql_fin=$sql_fin." GROUP BY $sort";
-
+                //If sort is present in the parameters.
                 if(!(empty($order)))
                 {
+                    //If order is present in the parameters.
                     if (strcasecmp($order, "ASC") === 0 || strcasecmp($order, "DESC") === 0)
                     {
+                        //Append to the query.
                         $sql_fin=$sql_fin." ORDER BY $sort $order";
                     }
                     else
@@ -1012,6 +1017,7 @@ class Database
             }
 
             
+            //Append a limit to the amount of results returned, for simplicity
             $sql_fin .= " LIMIT 20";
             
             $stmt = mysqli_prepare($conn, $sql_fin);
@@ -1021,9 +1027,12 @@ class Database
             }
             mysqli_stmt_execute($stmt);
 
+
             $result2 = mysqli_stmt_get_result($stmt);
+
             if ($result2) 
             {
+                //if the above query returned anything from the database.
                 $rows = array();
             
                 while ($row = mysqli_fetch_assoc($result2)) 
@@ -1039,7 +1048,7 @@ class Database
                 $titles = [];
                 foreach ($rows as $row) 
                 {
-                    
+                    //Query to retrieve all information about the titles with matching title_ids.
                     $title_id= $row['title_id'];
                     $sql_get="SELECT  t.*,  s.name AS studio_name,  l.name AS language_name, 
                     GROUP_CONCAT(DISTINCT CONCAT(a.first_name, ' ', a.last_name) ORDER BY a.first_name ASC SEPARATOR ', ') AS actor_names,
@@ -1067,6 +1076,7 @@ class Database
                     $res = [];
                     if ($result->num_rows > 0) 
                     {
+                        //If the query retrieved anything
                         while ($resrow = $result->fetch_assoc()) 
                         {
                             $res[] = $resrow;
@@ -1074,6 +1084,7 @@ class Database
                     }
                     $titles[]=$res;
                 }
+                //return a json response.
                 $response = array( 
                     "status"=> "success",
                     "timestamp"=> microtime(true) *1000,
@@ -1084,10 +1095,12 @@ class Database
             }
             else
             {
+                //if the above query returned nothing from the database.
+                //Return a json response with an error status.
                 $response = array( 
                 "status"=> "error",
                 "timestamp"=> microtime(true) *1000,
-                "data"=>$titles,
+                "data"=>"Post parameters are missing",
                 "message"=> "No films found for this filter"    
                 );
                 header("Content-Type: application/json");
@@ -1102,8 +1115,8 @@ class Database
 
     
 header('Access-Control-Allow-Origin: *');
-      header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-      header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 $database = Database::instance();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -1130,10 +1143,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "API key missing"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);
-                return;
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);
+            return;
         }
 
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
@@ -1221,8 +1234,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 return;            
         }
         mysqli_stmt_close($stmt);
-
-
         if ($request_data["type"] === "AddTitle") {
             $database->AddTitle();
         }
@@ -1234,21 +1245,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         {
             $database->UpdateTitle();
         }
-        
-
+    
         else
         {
             $error_response = array( 
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post type parameters are missing/incorrect"   
-                );
-                header("Content-Type: application/json");
-                echo json_encode($error_response);  
-                return;
+            );
+            header("Content-Type: application/json");
+            echo json_encode($error_response);  
+            return;
         }
     }  
 }
-
-
 ?>

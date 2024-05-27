@@ -64,5 +64,6 @@
             </div>
         </span>
 </header>
+<script src = "js/global.js"></script>
 </body>
 </html>

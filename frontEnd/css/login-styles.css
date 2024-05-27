@@ -1,5 +1,7 @@
-/* <!--James Neale-->
-<!--u23656175--> */
+/* 
+*  login-styles.css 
+*  Provides the css for login and register containers 
+*/
 
 
 .container {
@@ -13,11 +15,7 @@
   }
 
   .register-header{
-<<<<<<< Updated upstream
     font-size: 21px;
-=======
-    font-size: 25px;
->>>>>>> Stashed changes
   }
   
   /* Style the grid and card */
@@ -30,11 +28,7 @@
   }
   
   .card {
-<<<<<<< Updated upstream
     height: fit-content;
-=======
-    max-height: 75vh;
->>>>>>> Stashed changes
     background-color: #fff;
     padding: 20px;
     border: 2px solid #ddd;
@@ -51,23 +45,14 @@
   .login-label {
     color: rgb(66, 66, 66);
     display: block;
-<<<<<<< Updated upstream
     font-size: 19px;
     margin-bottom: 0px;
-=======
-    margin-bottom: 2px;
->>>>>>> Stashed changes
   }
   
   .login-input {
     width: 80%;
-<<<<<<< Updated upstream
     padding: 5px;
     margin-bottom: 0px;
-=======
-    padding: 10px;
-    margin-bottom: 5px;
->>>>>>> Stashed changes
     border: 1px solid #ccc;
   }
   
@@ -76,13 +61,24 @@
   }
   
   .submit {
-    background-color: #4CAF50;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    animation: gradientFlow 8s linear infinite;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
+
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 400%;
+    }
+}
   
   .submit:hover {
     background-color: #3e8e41;

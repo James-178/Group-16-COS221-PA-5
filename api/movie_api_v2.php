@@ -418,7 +418,6 @@ class Database
             if(!(empty($sort)))
             {
 
-                $sql_fin=$sql_fin." GROUP BY t.$sort";
                 
 
                 if(!(empty($order)))
@@ -786,7 +785,7 @@ class Database
         }
 
         
-        $querystudio = "SELECT DISTINCT studios.*, ceo.first_name, ceo.last_name, studio_phone.phone, studio_email.email FROM studios JOIN studio_phone ON studios.studio_id = studio_phone.studio_id JOIN ceo ON studios.ceo_id = ceo.ceo_id JOIN studio_email ON studios.studio_id = studio_email.studio_id GROUP BY studios.studio_id, ceo.first_name, studio_phone.phone, studio_email.email";
+        $querystudio = "SELECT * from studios";
 
         $result = $conn->query($querystudio);
 
@@ -815,10 +814,103 @@ class Database
 
     }
 
+    public function addReview()
+    {
+        $json_data = file_get_contents("php://input");
+        $request_data = json_decode($json_data, true);
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+        if (!$conn) 
+        {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        if ($request_data !== null)
+        {   
+            $user_id = null;
+            $key = isset($request_data["api_key"]) ? $request_data["api_key"] : null;
+            $review = isset($request_data["review"]) ? $request_data["review"] : null;
+            $rating = isset($request_data["rating"]) ? $request_data["rating"] : null;
+            $title_id = isset($request_data["title_id"]) ? $request_data["title_id"] : null;
+
+            if (empty($review)) {
+                http_response_code(400);
+                echo json_encode(array("error" => "No review given"));
+                return;
+            }
+
+            if (strlen($review)>255) {
+                http_response_code(400);
+                echo json_encode(array("error" => "Character length exceeded"));
+                return;
+            }
+
+            // $sql_findUserId = "SELECT user_id FROM users WHERE api = `$key`";
+            // $result = $conn->query($sql_findUserId);
+            // if ($result->num_rows > 0) 
+            // {
+            //     $row = $result->fetch_assoc();
+            //     $user_id = $row["user_id"];    
+            // }
+
+            $sql_findUserId = "SELECT user_id FROM users WHERE api_key = ?";
+            $stmt = mysqli_prepare($conn, $sql_findUserId);
+            mysqli_stmt_bind_param($stmt, "s", $key);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $user_id);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+
+            $sql_wasReviewed = "SELECT review_id FROM reviews WHERE title_id = $title_id AND user_id = $user_id";
+            $result2 = mysqli_query($conn, $sql_wasReviewed);
+            $row = mysqli_fetch_assoc($result2);
+
+            // $sql_wasReviewed = "SELECT review_id FROM reviews WHERE title_id = $title_id AND user_id = $user_id";
+            // $result2 = $conn->query($sql_wasReviewed);
+
+            if ($row > 0) 
+            {
+                $review_id = $row["review_id"];
+                $sql = "UPDATE reviews SET rating = $rating, review = \"" . $review . "\"WHERE review_id = $review_id";
+                if (mysqli_query($conn, $sql)) 
+                {
+                    echo json_encode(array("status" => "success"));
+                } 
+                else 
+                {
+                    echo "Error updating record: " . mysqli_error($conn);
+                }
+
+                mysqli_close($conn);
+            }
+            else
+            {
+                $sql = "INSERT INTO reviews (title_id, user_id, rating, review) VALUES (?, ?, ?, ?)";
+                $stmt2 = $conn->prepare($sql);
+                $stmt2->bind_param("iiis", $title_id, $user_id, $rating, $review);
+                if (!($stmt2->execute())) {
+                    echo "Error: " . $stmt2->error;
+                } else {
+                    echo json_encode(array("status" => "success"));
+                }
+                $stmt2->close();
+            }
+            $conn->close();
+        }
+        else
+        {
+            $error_response = array( 
+                "status"=> "error",
+                "timestamp"=> microtime(true) * 1000,
+                "data"=> "Post parameters are missing/incorrect"   
+                );
+                header("Content-Type: application/json");
+                echo json_encode($error_response);
+        }
+    }
+
 }
 
     
-header('Access-Control-Allow-Origin: *');
+      header('Access-Control-Allow-Origin: *');
       header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
       header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
@@ -864,7 +956,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         mysqli_stmt_bind_param($stmt, "s", $api_key);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $count);
-         mysqli_stmt_fetch($stmt);
+        mysqli_stmt_fetch($stmt);
         if ($count == 0) 
         {
             $error_response = array(
@@ -905,6 +997,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if($request_data["type"] === "GetAllTitles")
         {
             $database->GetAllTitles();
+            return;
+        }
+
+        if($request_data["type"] === "addReview")
+        {
+            $database->addReview();
             return;
         }
 

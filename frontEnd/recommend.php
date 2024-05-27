@@ -1,3 +1,5 @@
+<!-- recommend.php -->
+
 <!doctype html>
 <html>
 <head>
@@ -13,19 +15,7 @@
 
 <body>
 <header>
-    <nav class="sticky">
-        <div class="row">
-            <img src="img/simpleEdit.jpg" width="100" height="100" alt="Website Logo" class="logo"/>
-            <ul class="main-nav">
-                <li><a href="index.php">Listings</a></li>
-                <li><a href="studios.php">Studios</a></li>
-                <li><a href="watchlist.php">Watchlist</a></li>
-                <li><a class="current" href="recommend.php">Recommendations</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php include('nav.php'); ?>
 
     <br>
     <br>
@@ -35,17 +25,22 @@
     <br>
     <br>
     <br>
+
+    <!-- Added all the breaklines so that the title can be displayed below the Navbar. -->
 
     <div class="hero-text-box">
         <h1 class="title">What are you in the Mood for?</h1>
        
     
+        <!-- Dropdown box uses a spinedit to select a release year. -->
         <div class="dropdown">
             <button class="dropbtn">Release Year</button>
             <div class="dropdown-content">
                 <input id="year" type="number" value="2020"><br>
             </div>
         </div>
+
+        <!-- Dropdown boxes that each use a radio group to select the parameters to recommend by. -->
         <div class="dropdown">
             <button class="dropbtn">Duration</button>
             <div class="dropdown-content">
@@ -110,13 +105,9 @@
         
     </div>
 
-    <!-- <span class="studios" id="studios"></span>  -->
-
-    <script type="text/javascript" src="JS/recommend.js"></script>
-    
 </header>
-
-
+<script type="text/javascript" src="js/recommend.js"></script>
+<script src = "js/global.js"></script>
 
 </body>
 </html>

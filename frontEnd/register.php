@@ -1,3 +1,5 @@
+<!-- register.php -->
+
 <!doctype html>
 <html>
 <head>
@@ -14,18 +16,7 @@
 
 <body>
 <header>
-    <nav class="sticky">
-        <div class="row">
-            <img src="img/simpleEdit.jpg" width="100" height="100" alt="Website Logo" class="logo"/>
-            <ul class="main-nav">
-                <li><a href="index.php">Listings</a></li>
-                <li><a href="studios.php">Studios</a></li>
-                <li><a href="watchlist.php">Watchlist</a></li>
-                <li><a class="current" href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php include('nav.php'); ?>
 
     <section class = "login">
             <!-- <div class = "container"> -->
@@ -36,43 +27,27 @@
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="name" class="login-label">Name:</label>
-<<<<<<< Updated upstream
                                 <input type = "text" id = "name" name = "name" class = "login-input" placeholder="Tony" value = "Tony" required><br>
-=======
-                                <input type = "text" id = "name" name = "name" class = "login-input" placeholder="Tony" required><br>
->>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="surname" class="login-label">Surname:</label>
-<<<<<<< Updated upstream
                                 <input type = "text" id = "surname" name = "surname" class = "login-input" placeholder="Stark" value="Stark" required><br>
-=======
-                                <input type = "text" id = "surname" name = "surname" class = "login-input" placeholder="Stark" required><br>
->>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="login-label">E-mail:</label>
-<<<<<<< Updated upstream
                                 <input type = "text" id = "email" name = "email" class = "login-input" placeholder="TonyStark@gmail.com" value="TonyStark@gmail.com" required><br>
                             </div>
 
                             <div class="form-group">
                                 <label for="dob" class="login-label">Date of Birth:</label>
                                 <input type = "date" id = "dob" name = "dob" class = "login-input" required><br>
-=======
-                                <input type = "text" id = "email" name = "email" class = "login-input" placeholder="TonyStark@gmail.com" required><br>
->>>>>>> Stashed changes
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="login-label">Password:</label>
-<<<<<<< Updated upstream
                                 <input type = "password" id = "password" name = "password" class = "login-input" value = "LoveYou3000!" required><br>
-=======
-                                <input type = "password" id = "password" name = "password" class = "login-input"  required><br>
->>>>>>> Stashed changes
                             </div>
 
                             <div id = "error">
@@ -91,5 +66,6 @@
         </section>
 </header>
 <script src = "js/register.js"></script>
+<script src = "js/global.js"></script>
 </body>
 </html>
