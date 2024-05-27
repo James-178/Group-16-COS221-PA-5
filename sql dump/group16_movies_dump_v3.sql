@@ -3847,7 +3847,7 @@ DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reviews` (
-  `review_id` int(11) NOT NULL,
+  `review_id` int(11) AUTO_INCREMENT NOT NULL,
   `title_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `rating` int(11) NOT NULL,
