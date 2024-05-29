@@ -716,14 +716,14 @@ class Database
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
         if (!$conn) 
         {
-            die("Connection failed: " . mysqli_connect_error());
+            die("Connection failed: " . mysqli_connect_error());        //connection error response
         }
         if ($request_data !== null)
         {   
             $password = isset($request_data["password"]) ? $request_data["password"] : null;
             $email = isset($request_data["email"]) ? $request_data["email"] : null;
 
-            $sql_salt = "SELECT salt, password, api_key, is_admin FROM users WHERE email=?";
+            $sql_salt = "SELECT salt, password, api_key, is_admin FROM users WHERE email=?";        //query to retrieve salt associated with user
             $stmt = mysqli_prepare($conn, $sql_salt);
             mysqli_stmt_bind_param($stmt, "s", $email); 
             mysqli_stmt_execute($stmt);
@@ -732,7 +732,7 @@ class Database
             $password=$salt.$password;
             $stmt->close();
 
-            if (password_verify($password, $stored_hash))
+            if (password_verify($password, $stored_hash))                        //return api key if password verification is successfull
             {
                 $response_data = array(
                     "status" => "success",
@@ -749,7 +749,7 @@ class Database
             }
             else
             {
-                $error_response = array( 
+                $error_response = array(                         //email or password error response
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Email/Password incorrect"   
