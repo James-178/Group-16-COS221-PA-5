@@ -1,10 +1,10 @@
 
 
 <?php
-require_once('config.php');
+require_once('config.php');        //get required database connection info from config file
 class Database 
 {
-    public static function instance()
+    public static function instance()        //singleton class 
     {
     static $instance = null;
     if($instance === null)
@@ -26,7 +26,7 @@ class Database
             $language_id = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
             $studio_id = isset($request_data["studio_id"]) ? $request_data["studio_id"] : null;
 
-            if ($name === null || $release_year === null || $description === null || $duration === null || $is_movie === null) 
+            if ($name === null || $release_year === null || $description === null || $duration === null || $is_movie === null)          //check if required parameters are set , remaining parameters can be null
             {
                 $error_response = array( 
                     "status"=> "error",
@@ -41,11 +41,11 @@ class Database
             $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
             if (!$conn) 
             {
-                die("Connection failed: " . mysqli_connect_error());
+                die("Connection failed: " . mysqli_connect_error());                                                                            //connection error response
             }
 
             $sql_api = "INSERT INTO `titles` (name, release_year, description, duration, IMDB_rating, is_movie, language_id, studio_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";                                                                                                            //query to insert title
             $stmt = mysqli_prepare($conn, $sql_api);
             mysqli_stmt_bind_param($stmt, "sisidiii", $name, $release_year, $description, $duration, $IMDB_rating, $is_movie, $language_id, $studio_id);
             if (!mysqli_stmt_execute($stmt)) 
@@ -74,7 +74,7 @@ class Database
         if ($request_data !== null)
         {
             $title_id = isset($request_data["title_id"]) ? $request_data["title_id"] : null;
-            if($title_id===null)
+            if($title_id===null)                                                                                    //check if required parameter is set
             {
                 $error_response = array( 
                     "status"=> "error",
@@ -91,7 +91,7 @@ class Database
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";
+            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";                            //check if title id exists in table
             $stmt = mysqli_prepare($conn, $sql_check_id);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
             if (!mysqli_stmt_execute($stmt)) {
@@ -111,7 +111,7 @@ class Database
             }
             mysqli_stmt_close($stmt);
 
-            $sql_api = "DELETE FROM titles WHERE title_id = ?";
+            $sql_api = "DELETE FROM titles WHERE title_id = ?";                                                //query to remove title from table
             $stmt = mysqli_prepare($conn, $sql_api);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
             if (!mysqli_stmt_execute($stmt)) {
@@ -149,7 +149,7 @@ class Database
             $language_id = isset($request_data["language_id"]) ? $request_data["language_id"] : null;
             $studio_id = isset($request_data["studio_id"]) ? $request_data["studio_id"] : null;
 
-            if ($title_id==null) 
+            if ($title_id==null)                                                                                 //check if required parameter is set
             {
                 $error_response = array( 
                     "status"=> "error",
@@ -167,7 +167,7 @@ class Database
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";
+            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";                            //check if title id exists in the table 
             $stmt = mysqli_prepare($conn, $sql_check_id);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
             if (!mysqli_stmt_execute($stmt)) {
@@ -189,7 +189,7 @@ class Database
             mysqli_stmt_close($stmt);
 
             $update_fields = array();
-            $update_params = array();
+            $update_params = array();                                                                         //only add attributes and values included in the input json to arrays for the update query
             if ($name !== null) 
             {
                 $update_fields[] = "name = ?";
@@ -230,7 +230,7 @@ class Database
                 $update_fields[] = "studio_id = ?";
                 $update_params[] = $studio_id;
             }
-            $sql_api= "UPDATE titles SET " . implode(", ", $update_fields) . " WHERE title_id = ?";
+            $sql_api= "UPDATE titles SET " . implode(", ", $update_fields) . " WHERE title_id = ?";                //construct update query from update_fields and update_params arrays and execute
             $stmt = mysqli_prepare($conn, $sql_api);
             $update_params[] = $title_id; 
             $param_types = str_repeat("s", count($update_params)); 
@@ -1131,7 +1131,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $request_data = json_decode($json_data, true);
     if ($request_data !== null)
     {   
-        if ($request_data["type"] === "Register") {
+        if ($request_data["type"] === "Register") {                                                                //call one method at a time based on input type
             $database->Register();
             return;
         }
@@ -1160,7 +1160,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $sql_check_key = "SELECT COUNT(*) AS count FROM users WHERE api_key = ?";
+        $sql_check_key = "SELECT COUNT(*) AS count FROM users WHERE api_key = ?";                    //check if api key is valid before calling user methods
         $stmt = mysqli_prepare($conn, $sql_check_key);
         mysqli_stmt_bind_param($stmt, "s", $api_key);
         mysqli_stmt_execute($stmt);
@@ -1179,7 +1179,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } 
         mysqli_stmt_close($stmt);
 
-        if($request_data["type"] === "studios")
+        if($request_data["type"] === "studios")                                                    
         {
             $database->getStudios();
             return;
@@ -1221,7 +1221,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             return;
         }
 
-        $sql_check_admin = "SELECT is_admin FROM users WHERE api_key = ?";
+        $sql_check_admin = "SELECT is_admin FROM users WHERE api_key = ?";                    //check if valid api key is associated with an admin user before calling admin-only methods
         $stmt = mysqli_prepare($conn, $sql_check_admin);
         mysqli_stmt_bind_param($stmt, "s", $api_key); 
         mysqli_stmt_execute($stmt);
