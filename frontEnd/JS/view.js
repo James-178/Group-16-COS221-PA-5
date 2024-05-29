@@ -1,12 +1,14 @@
 //view.js
 
+// Check if user is logged in
 if(!localStorage.hasOwnProperty("api_key")){
     window.location.href = "login.php";
     
 }else{
+    // Get the title id parsed through the URL
     var id = window.location.href.split("?")[1];
-    console.log(id);
 
+    // function to load the view with the movie/series info
     function loadView(params){
         const titleDataReq = new XMLHttpRequest();
         titleDataReq.onload = function(){
@@ -15,10 +17,10 @@ if(!localStorage.hasOwnProperty("api_key")){
                 res = JSON.parse(this.responseText);
                 let data = res.data;
                 data.forEach(movie => {
-                    console.log(movie.title_id);
                     const imageRequest = new XMLHttpRequest();
                     imageRequest.onload = function() 
                     {
+                        // load the image
                         img = document.getElementById("view-image");
                         if(this.status === 200)
                         {
@@ -26,11 +28,9 @@ if(!localStorage.hasOwnProperty("api_key")){
                             if (imageresponse.id !== null)
                             { 
                                     
-                                //console.log(imageresponse);
                                 if (imageresponse.posters[0].length !== 0) 
                                 {
                                     img.src = "https://image.tmdb.org/t/p/w500/" + imageresponse.posters[0].file_path;
-                                    //img.src = 'img/ironman.jpg';
                                     img.width = 300;
                                     img.height = 300;
                                     img.alt = 'image of movie';
@@ -49,11 +49,13 @@ if(!localStorage.hasOwnProperty("api_key")){
                         }
                         
                     }
+                    // GET image from themoviedb API
                     imageRequest.open('GET', `https://api.themoviedb.org/3/movie/${movie.title_id}/images`);
                     imageRequest.setRequestHeader('accept', 'application/json');
                     imageRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhjNzk1ZDlmY2JmMzczZDMyZGZhNzVlZDIzYjUzNyIsInN1YiI6IjY2NGNhODAyZmQ0MWQ1M2NhZmYyZGRlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gkyF7TnTPIp4G-J6gMfFuETtXZe6TSw1wk7Yip9zt2U');
                     imageRequest.send();
-                
+                    
+                    // loading containers with the correct data
                     const p = document.createElement('p');
                     p.innerHTML = `
                     Title: ${movie.name}<br>
@@ -64,6 +66,7 @@ if(!localStorage.hasOwnProperty("api_key")){
                     Duration: ${movie.duration}<br>
                     Studio: ${movie.studio_name}
                     `;
+                    // removing any old data that was previously in the container
                     var shortInfo = document.getElementById("view-info");
                     if(shortInfo.lastElementChild !== null)
                     {
@@ -74,9 +77,14 @@ if(!localStorage.hasOwnProperty("api_key")){
                         }
                     }
 
+                    // appending the new data to the container
                     document.getElementById("view-info").appendChild(p);
+
+                    // loading description info
                     document.getElementById("Description").innerHTML = movie.description;
 
+
+                    // loading actors info
                     var actors = document.getElementById("Actors");
                     if(actors.lastElementChild !== null)
                     {
@@ -104,6 +112,7 @@ if(!localStorage.hasOwnProperty("api_key")){
                         document.getElementById("Actors").appendChild(li);
                     });
 
+                    // loading crew info
                     var crew = document.getElementById("Crew");
                     child = crew.lastElementChild;
                     while (child) 
@@ -117,6 +126,7 @@ if(!localStorage.hasOwnProperty("api_key")){
                         document.getElementById("Crew").appendChild(li);
                     });
 
+                    // loading director info
                     const director = document.createElement('li');
                     var directorContainer = document.getElementById("Director");
                     if(directorContainer.lastElementChild !== null)
@@ -125,16 +135,16 @@ if(!localStorage.hasOwnProperty("api_key")){
                     }
                     if(movie.director === null)
                     {
-                        // console.log("IS NULL");
                         director.innerText = "UNKNOWN";
                     }
                     else
                     {
-                        // console.log("IS NOT NULL");
                         director.innerHTML = movie.director;
                     }
                     directorContainer.appendChild(director);
 
+                    
+                    // loading review info
                     var reviews = document.getElementById("Reviews");
                     child = reviews.lastElementChild;
                     while (child) 
@@ -156,6 +166,7 @@ if(!localStorage.hasOwnProperty("api_key")){
         titleDataReq.send(JSON.stringify(params));
     }
 
+    // title data to send
     let title = {
         type:"GetTitle",
         api_key:localStorage.getItem("api_key"),
@@ -164,7 +175,7 @@ if(!localStorage.hasOwnProperty("api_key")){
 
     loadView(title);
 
-
+    // Function to submit a review
     function submitReview()
     {
         const review = document.getElementById("review");
@@ -185,11 +196,13 @@ if(!localStorage.hasOwnProperty("api_key")){
                 else if(res.status === "success")
                 {
                     console.log("review sent");
+                    // call the loadView function if review sent to refresh the data 
                     loadView(title);
                 }
             }
         }
 
+        // Data to send to add review
         const params = {
             "type" : "addReview",
             "api_key": localStorage.getItem("api_key"),

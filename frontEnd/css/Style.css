@@ -281,7 +281,7 @@ input[type=submit]{
     color: #e67e22;
 }
 
-
+/* ----- DROPDOWN BUTTONS ----- */
 
 .dropbtn {
     color: #ffffff;
@@ -599,6 +599,8 @@ input[type=submit]{
     border-radius: 10px;
     width: 300px;
 }
+
+/* ----- MOVIE INFO  ----- */
 
 .movieInfo {
     position: relative;

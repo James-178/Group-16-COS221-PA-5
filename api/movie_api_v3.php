@@ -817,15 +817,20 @@ class Database
 
     
 
+    //Add/Update review and rating
     public function addReview()
     {
+        //Check for input and decode JSON into php
         $json_data = file_get_contents("php://input");
         $request_data = json_decode($json_data, true);
+
+        //Connect to the database
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
         if (!$conn) 
         {
             die("Connection failed: " . mysqli_connect_error());
         }
+        //Check if the request data is not null
         if ($request_data !== null)
         {   
             $user_id = null;
@@ -846,13 +851,7 @@ class Database
                 return;
             }
 
-            // $sql_findUserId = "SELECT user_id FROM users WHERE api = `$key`";
-            // $result = $conn->query($sql_findUserId);
-            // if ($result->num_rows > 0) 
-            // {
-            //     $row = $result->fetch_assoc();
-            //     $user_id = $row["user_id"];    
-            // }
+            //Query to find user ID
 
             $sql_findUserId = "SELECT user_id FROM users WHERE api_key = ?";
             $stmt = mysqli_prepare($conn, $sql_findUserId);
@@ -862,15 +861,17 @@ class Database
             mysqli_stmt_fetch($stmt);
             mysqli_stmt_close($stmt);
 
+            //Query to check if user made a review before 
+
             $sql_wasReviewed = "SELECT review_id FROM reviews WHERE title_id = $title_id AND user_id = $user_id";
             $result2 = mysqli_query($conn, $sql_wasReviewed);
             $row = mysqli_fetch_assoc($result2);
 
-            // $sql_wasReviewed = "SELECT review_id FROM reviews WHERE title_id = $title_id AND user_id = $user_id";
-            // $result2 = $conn->query($sql_wasReviewed);
+            
 
             if ($row > 0) 
             {
+                // if user made a review previously then update that review
                 $review_id = $row["review_id"];
                 $sql = "UPDATE reviews SET rating = $rating, review = \"" . $review . "\"WHERE review_id = $review_id";
                 if (mysqli_query($conn, $sql)) 
@@ -886,6 +887,7 @@ class Database
             }
             else
             {
+                // if user made no review previously then add a review
                 $sql = "INSERT INTO reviews (title_id, user_id, rating, review) VALUES (?, ?, ?, ?)";
                 $stmt2 = $conn->prepare($sql);
                 $stmt2->bind_param("iiis", $title_id, $user_id, $rating, $review);
@@ -900,6 +902,7 @@ class Database
         }
         else
         {
+            //error response
             $error_response = array( 
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,

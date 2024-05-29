@@ -15,6 +15,7 @@
 
 <body>
 <header>
+     <!-- Navigation file -->
     <?php include('nav.php'); ?>
 
     <br>
@@ -25,15 +26,20 @@
     <br>
     <br>
 
+     <!-- Contains all the header info such as title and includes the filtering options -->
     <div class="hero-text-box">
         <h1 class="title">Find Something to watch</h1>
+         <!-- movie or series button -->
         <div class="options">
             <div class="btnList">
                 <li><a id = "movie-filter" href="#">MOVIES</a></li>
                 <li><a id = "series-filter" href="#">SERIES</a></li>
             </div>
         </div>
+         <!-- Search bar -->
         <div><input type="text" id = "search-bar" placeholder="Search..."></div>
+
+         <!-- dropdown  filters-->
         
         <div class="dropdown">
             <button class="dropbtn">Language</button>
@@ -72,6 +78,8 @@
                 </label>
             </div>
         </div>
+
+        <!-- sort filter -->
         <div class="sort">
             <div class="dropdown">
                 <button class="dropbtn">Sort</button>
@@ -95,7 +103,7 @@
     </div>
 
     
-
+     <!-- Container where movies/series will be loaded -->
     <span class="listings" id = "listings">
         
     </span>

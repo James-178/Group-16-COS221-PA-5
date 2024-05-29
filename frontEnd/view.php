@@ -15,16 +15,25 @@
 
 <body>
 <header>
+    <!-- include the nav.php file -->
     <?php include('nav.php'); ?>
+
+    <!-- Container conatining all the movie info, there is 2 sections. A long section for big info and a short section for small info  -->
     <div class="movieInfo">
+        <!-- Short info -->
         <div class="shortInfo">
+            <!-- Movie image and and info on title, duration, released year e.t.c-->
             <img id="view-image" src="" alt="image of movie" width="300" height="300">
             <div id="view-info"></div>
         </div>
 
+        <!-- Long info -->
         <div class="longInfo">
+             <!-- Contains a description of the movie -->
             <h2>Description</h2>
             <p id="Description"></p>
+
+             <!-- Contains all the different people who worked on the movie and their roles-->
             <div class="viewPeople">
                 <div class="people">
                     <h2>Actors</h2>
@@ -42,6 +51,7 @@
                 </div>
             </div>
 
+             <!-- Container to display the reviews of the movie by users -->
             <h2>Reviews</h2>
             <p id="Reviews"></p>
 
@@ -56,6 +66,7 @@
                     </div>
                 </div>
                 <br>
+                 <!-- button to send a review -->
                 <div class="btn" onclick="submitReview()">Submit</div>
             </form>
         </div>
