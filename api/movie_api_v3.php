@@ -622,7 +622,7 @@ class Database
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
         if (!$conn) 
         {
-            die("Connection failed: " . mysqli_connect_error());
+            die("Connection failed: " . mysqli_connect_error());                        //connection error response
         }
         if ($request_data !== null)
         {   
@@ -632,7 +632,7 @@ class Database
             $email = isset($request_data["email"]) ? $request_data["email"] : null;
             $dob = isset($request_data["dob"]) ? $request_data["dob"] : null;
 
-            if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {
+            if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {          //check if required parameters are set
                 http_response_code(400);
                 echo json_encode(array("error" => "All fields are required"));
                 return;
@@ -644,19 +644,19 @@ class Database
                 return;
             }
 
-            if ((!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) || (!filter_var($email, FILTER_VALIDATE_EMAIL)) ) {
+            if ((!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) || (!filter_var($email, FILTER_VALIDATE_EMAIL)) ) {             //validate email with regex and built-in function
                 http_response_code(400);
                 echo json_encode(array("error" => "Invalid Email"));
                 return;
             }
 
-            if (!(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{8,}$/', $password))) {
+            if (!(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{8,}$/', $password))) {                    //validate password with regex
                 http_response_code(400);
                 echo json_encode(array("error" => "Invalid Password"));
                 return;
             }
 
-            $sql_check_email = "SELECT COUNT(*) AS count FROM users WHERE email = ?";
+            $sql_check_email = "SELECT COUNT(*) AS count FROM users WHERE email = ?";             //check if email already exists in database
             $stmt = mysqli_prepare($conn, $sql_check_email);
             mysqli_stmt_bind_param($stmt, "s", $email);
             mysqli_stmt_execute($stmt);
@@ -679,14 +679,14 @@ class Database
             $salt=bin2hex(random_bytes(10));
             $salted_password=$salt.$password;
             $hashed_password = password_hash($salted_password, PASSWORD_BCRYPT);
-            do {
+            do {                                                                                           //generate new random api key until an unique key has been generated
                 $api_key = bin2hex(random_bytes(10));
-                $sql = "SELECT COUNT(api_key) AS count FROM users WHERE api_key = '$api_key'";
+                $sql = "SELECT COUNT(api_key) AS count FROM users WHERE api_key = '$api_key'";              //check if api key is unique in table
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
             } while ($row['count'] > 0);
 
-            $sql = "INSERT INTO users (first_name, last_name, dob, email, salt, password,api_key) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO users (first_name, last_name, dob, email, salt, password,api_key) VALUES (?, ?, ?, ?, ?, ?, ?)";              //query to add new user
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssssss", $first_name, $last_name, $dob,$email, $salt,$hashed_password, $api_key);
             if (!($stmt->execute())) {
@@ -699,7 +699,7 @@ class Database
         }
         else
         {
-            $error_response = array( 
+            $error_response = array(                                                               // request data error response
                 "status"=> "error",
                 "timestamp"=> microtime(true) * 1000,
                 "data"=> "Post parameters are missing/incorrect"   
