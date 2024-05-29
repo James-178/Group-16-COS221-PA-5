@@ -259,7 +259,7 @@ class Database
         if ($request_data !== null)
         {   
             $title_id = isset($request_data["title_id"]) ? $request_data["title_id"] : null;
-            if ($title_id==null) 
+            if ($title_id==null)                                                         //check if required parameter is set
             {
                 $error_response = array( 
                     "status"=> "error",
@@ -276,7 +276,7 @@ class Database
             {
                 die("Connection failed: " . mysqli_connect_error());
             }
-            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";
+            $sql_check_id = "SELECT COUNT(*) AS count FROM titles WHERE title_id = ?";    //check if id exists in table
             $stmt = mysqli_prepare($conn, $sql_check_id);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
 
@@ -288,7 +288,7 @@ class Database
             mysqli_stmt_fetch($stmt);
             if($count==0)
             {
-                $error_response = array( 
+                $error_response = array(                                                 //error response if id does not exist in table
                     "status"=> "error",
                     "timestamp"=> microtime(true) * 1000,
                     "data"=> "Title ID not found"   
@@ -317,7 +317,8 @@ class Database
                       LEFT JOIN people cp ON c.person_id = cp.person_id
                       LEFT JOIN genres g ON t.title_id = g.title_id
                       LEFT JOIN reviews r ON t.title_id = r.title_id
-                      WHERE t.title_id = ?";
+                      WHERE t.title_id = ?";                                            //retrieve all available info relating to the single title id
+                                                                                        //seperate all actors,crew,director names,reviews and genres by commas and concatenate to respective strings
 
             $stmt = mysqli_prepare($conn, $sql_get);
             mysqli_stmt_bind_param($stmt, "i", $title_id);
@@ -325,7 +326,7 @@ class Database
             {
                 die("Execution failed: ".mysqli_stmt_error($stmt));
             }
-            $result2 = mysqli_stmt_get_result($stmt);
+            $result2 = mysqli_stmt_get_result($stmt);                                     //retrieve results from query
             if ($result2) {
 
                 $rows = array();
@@ -341,7 +342,7 @@ class Database
             }
             mysqli_close($conn);      
 
-            foreach ($response['data'] as &$item) {
+            foreach ($response['data'] as &$item) {                                         //add each concatenation to a json key
                 $item['actor_names'] = explode(', ', $item['actor_names']);
                 $item['crew'] = explode(', ', $item['crew']);
                 $item['reviews'] = explode(', ', $item['reviews']);
