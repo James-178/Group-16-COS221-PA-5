@@ -80,66 +80,66 @@ Launch the application by navigating to https://localhost/{your_folder}/login.ph
 
 ### Task 2:
 
-EER-Diagram construction.
+~~EER-Diagram construction.~~
 
-Mention assumptions made/other info.
+~~Mention assumptions made/other info.~~
 
-Include screenshots of all iterations, discussing how it is improved.
+~~Include screenshots of all iterations, discussing how it is improved.~~
 
 ### Task 3:
 
-Map EER-diagram to relational model.
+~~Map EER-diagram to relational model.~~
 
-Show EACH step (pain).
+~~Show EACH step (pain).~~
 
-Include assumptions.
+~~Include assumptions.~~
 
 ### Task 4:
 
-Create the databases in MariaDB.
+~~Create the databases in MariaDB.~~
 
-Use MySQL workbench to generate a diagram to include.
+~~Use MySQL workbench to generate a diagram to include.~~
 
-Include: 
+~~Include:~~
 
-• Primary, Secondary and Foreign Keys
+~~• Primary, Secondary and Foreign Keys~~
 
-• Constraints and Checks
+~~• Constraints and Checks~~
 
-• Data Types and Length Constraints
+~~• Data Types and Length Constraints~~
 
 ### Task 5:
 
-Create a web-based application.
+~~Create a web-based application.~~
 
-Your web application must at a minimum be able to:
-• Login and manage users
+~~Your web application must at a minimum be able to:
+• Login and manage users~~
 
-• Add, edit, and delete Movies and TV series
+~~• Add, edit, and delete Movies and TV series~~
 
-• Manage actors, directors, genres and production studios
+~~• Manage actors, directors, genres and production studios~~
 
-• Sort and filter content based on various criteria
+~~• Sort and filter content based on various criteria~~
 
-• Update the database and/or extend, delete, etc.
+~~• Update the database and/or extend, delete, etc.~~
 
-• Recommend Movies and TV series based on a criteria
+~~• Recommend Movies and TV series based on a criteria~~
 
 ### Task 6:
 
-Add a lot of data to the database.
+~~Add a lot of data to the database.~~
 
 ### Task 7:
 
-Figure out what task 7 is.
+~~Figure out what task 7 is.~~
 
 ### Task 8:
 
-Make sure you have a short title and short concise description with each commit.
+~~Make sure you have a short title and short concise description with each commit.~~
 
 ### Task 9:
 
-Hopefully we get this far.
+~~Hopefully we get this far.~~
 
 
 
