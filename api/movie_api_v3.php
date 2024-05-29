@@ -373,7 +373,7 @@ class Database
             $order = isset($request_data["order"]) ? $request_data["order"] : null;
             $search = isset($request_data["search"]) ? $request_data["search"] : null;
 
-            if ($limit==null && $sort==null && $order==null && $search==null) 
+            if ($limit==null && $sort==null && $order==null && $search==null)         //check if required parameters are set
             {
                 $error_response = array( 
                 "status"=> "error",
@@ -388,13 +388,13 @@ class Database
             $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
             if (!$conn) 
             {
-                die("Connection failed: " . mysqli_connect_error());
+                die("Connection failed: " . mysqli_connect_error());                //connection error response
             }
 
-            $sql_fin = "SELECT DISTINCT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id";
+            $sql_fin = "SELECT DISTINCT t.title_id FROM titles t JOIN genres g ON t.title_id = g.title_id JOIN languages l ON t.language_id = l.language_id";        //query to get all title id's matching input parameters
             $where=false;
             if (!(empty($search))) {
-                foreach ($search as $column => $value) {
+                foreach ($search as $column => $value) {                                            //add input parameters to where-clause
                     $escapedColumn = mysqli_real_escape_string($conn, $column);
                     $escapedValue = mysqli_real_escape_string($conn, $value);
                     if ($column == "genre") {
@@ -425,7 +425,7 @@ class Database
                 {
                     if (strcasecmp($order, "ASC") === 0 || strcasecmp($order, "DESC") === 0)
                     {
-                        $sql_fin=$sql_fin." ORDER BY t.$sort $order";
+                        $sql_fin=$sql_fin." ORDER BY t.$sort $order";                                            //add input parameters to sort-clause
                     }
                     else
                     {
@@ -446,7 +446,7 @@ class Database
                 mysqli_stmt_bind_param($stmt, "i", $limit);
             }
             mysqli_stmt_execute($stmt);
-            $result2 = mysqli_stmt_get_result($stmt);
+            $result2 = mysqli_stmt_get_result($stmt);                    //get all title id's and add to array
             if ($result2) {
 
                 $rows = array();
@@ -460,7 +460,7 @@ class Database
                 }
                   
                 $titles = [];
-                foreach ($rows as $row) 
+                foreach ($rows as $row)                                      //loop through array to retrieve all info for every id
                 {
                     
                     $title_id= $row['title_id'];
@@ -483,12 +483,13 @@ class Database
                     LEFT JOIN people cp ON c.person_id = cp.person_id
                     LEFT JOIN genres g ON t.title_id = g.title_id
                     LEFT JOIN reviews r ON t.title_id = r.title_id
-                    WHERE t.title_id = $title_id";
+                    WHERE t.title_id = $title_id";                                       //retrieve all available info relating to the single title id
+                                                                                        //seperate all actors,crew,director names,reviews and genres by commas and concatenate to respective strings
 
                     $result = $conn->query($sql_get);
                     
                     $res = [];
-                    if ($result->num_rows > 0) {
+                    if ($result->num_rows > 0) {                                        //add result for every id to titles array
                         while ($resrow = $result->fetch_assoc()) {
                             $res[] = $resrow;
                         }
@@ -498,7 +499,7 @@ class Database
                 $response = array( 
                     "status"=> "success",
                     "timestamp"=> microtime(true) *1000,
-                    "data"=>$titles
+                    "data"=>$titles                                                //return all titles in json response
                 );
                 header("Content-Type: application/json");
                 echo json_encode($response);
