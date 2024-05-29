@@ -1,16 +1,16 @@
 <!-- admin.php -->
 
-<?php require_once('../api/config.php'); ?>
+<?php require_once('../api/config.php'); ?><!-- Include the configuration file that contains database connection details -->
 <!doctype html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/admin.css">
-    <link rel="stylesheet" type="text/css" href="css/Style.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css"><!-- Link to the CSS file for styling -->
+    <link rel="stylesheet" type="text/css" href="css/Style.css"><!-- Link to the CSS file for styling -->
     <title>Admin Page</title>
 </head>
 <body>
 <header>
-    <?php include('nav.php'); ?>
+    <?php include('nav.php'); ?><!-- Include the navigation bar from nav.php -->
 </header>
 <main>
     <h1>Admin Page</h1>
@@ -20,14 +20,14 @@
         <table>
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Release Year</th>
-                <th>Description</th>
-                <th>Duration</th>
-                <th>IMDB Rating</th>
-                <th>Language</th>
-                <th>Studio</th>
-                <th>Actions</th>
+                <th>Title</th><!-- Table column header for movie title -->
+                <th>Release Year</th><!-- Table column header for release year -->
+                <th>Description</th><!-- Table column header for movie description -->
+                <th>Duration</th><!-- Table column header for movie duration -->
+                <th>IMDB Rating</th><!-- Table column header for IMDB rating -->
+                <th>Language</th><!-- Table column header for language -->
+                <th>Studio</th><!-- Table column header for studio -->
+                <th>Actions</th><!-- Table column header for actions (edit/delete) -->
             </tr>
             </thead>
             <tbody>
@@ -38,34 +38,34 @@
 
             // Check connection
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Connection failed: " . $conn->connect_error);// Display an error message and terminate the script if connection failed
             }
 
             // Fetch movie data
-            $sql = "SELECT * FROM titles";
-            $result = $conn->query($sql);
+            $sql = "SELECT * FROM titles";// SQL query to select all columns from the 'titles' table
+            $result = $conn->query($sql);// Execute the query and store the result set
 
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
+            if ($result->num_rows > 0) {// Check if there are any rows returned by the query
+                while($row = $result->fetch_assoc()) {// Fetch associative array for each row in the result set
                     echo "<tr>
-                                <td>{$row['name']}</td>
-                                <td>{$row['release_year']}</td>
-                                <td>{$row['description']}</td>
-                                <td>{$row['duration']}</td>
-                                <td>{$row['IMDB_rating']}</td>
-                                <td>{$row['language_id']}</td>
-                                <td>{$row['studio_id']}</td>
+                                <td>{$row['name']}</td><!-- Display movie title -->
+                                <td>{$row['release_year']}</td><!-- Display release year -->
+                                <td>{$row['description']}</td><!-- Display description -->
+                                <td>{$row['duration']}</td><!-- Display duration -->
+                                <td>{$row['IMDB_rating']}</td><!-- Display IMDB rating -->
+                                <td>{$row['language_id']}</td><!-- Display language ID (could be replaced with language name) -->
+                                <td>{$row['studio_id']}</td><!-- Display studio ID (could be replaced with studio name) -->
                                 <td>
-                                    <a href='edit.php?id={$row['title_id']}'>Edit</a> | 
-                                    <a href='delete.php?id={$row['title_id']}'>Delete</a>
+                                    <a href='edit.php?id={$row['title_id']}'>Edit</a> | <!-- Link to edit page for the movie -->
+                                    <a href='delete.php?id={$row['title_id']}'>Delete</a><!-- Link to delete page for the movie -->
                                 </td>
                             </tr>";
                 }
             } else {
-                echo "<tr><td colspan='8'>No movies found</td></tr>";
+                echo "<tr><td colspan='8'>No movies found</td></tr>";// Display message if no movies are found
             }
 
-            $conn->close();
+            $conn->close();// Close the database connection
             ?>
             </tbody>
         </table>
