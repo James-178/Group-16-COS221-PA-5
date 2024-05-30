@@ -62,6 +62,16 @@ Move the api and frontEnd folders to htdocs in the XAMPP folder.
 
 Launch the application by navigating to https://localhost/{your_folder}/login.php.
 
+## Data population method:
+
+Mockaroo was used for data creation. Mockaroo allows for random data to be generated for various entities. This
+was used so our specific model could be followed.
+
+https://developer.themoviedb.org/docs/json-and-jsonp was used for image generation of titles and studios.
+Since we generated the rest of the data, the images do not correspond to the titles and studios. Mockaroo does not
+allow for random image generation.
+
+
 ## TO-DO
 
 ### Task 0:
